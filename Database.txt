@@ -6,9 +6,9 @@ Emp_Email VARCHAR(255) NOT NULL             #사원이메일
 );
 CREATE TABLE GROUPS
 (
-Group_No INT PRIMARY KEY AUTO_INCREMENT,  #그룸번호
+Group_No INT PRIMARY KEY AUTO_INCREMENT,  #그룹번호
 Group_Name VARCHAR(255) NOT NULL,           #그루비룸
-Group_Note VARCHAR(255) DEFAULT '-'          #그룸설명
+Group_Note VARCHAR(255) DEFAULT '-'          #그룹설명
 );
 CREATE TABLE Template
 (
