@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hermes Mail Solutions</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <!---------- 그래프 4개---------->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
+</head>
+
+<script>
+    function go_next() {
+        location.href = "training_generate_result.html"
+    }
+
+    function go_before() {
+        history.back();
+    }
+
+</script>
+
+
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Hermes Mail Solutions</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="../index.html"><i class="fa fa-home fa-fw"></i> 메인 화면 </a>
+                        </li>
+                        <li>
+                            <a href="../template.html"><i class="fa fa-th-large fa-fw"></i> 템플릿 관리 </a>
+                        </li>
+                        <li>
+                            <a href="../../pages/User_manage"><i class="fa  fa-user fa-fw"></i> 사용자 / 그룹 관리 </a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa  fa-calendar fa-fw"></i> 훈련 관리 <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../training_generate.html">훈련 생성 </a>
+                                </li>
+                                <li>
+                                    <a href="../training_list.html">훈련 목록 </a>
+                                </li>
+                                <li>
+                                    <a href="../training_result.html">훈련 결과 </a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="../mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">{{#each tmp}}{{this.Train_Name}}{{/each}}</h1>
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" onclick="window.location.href='../training_list_traindetail/{{#each tmp}}{{this.Train_No}}{{/each}}'" class="btn btn-outline btn-info btn-lg"><i class="fa fa-bar-chart-o"></i> 훈련 </button>
+                            <button type="button" onclick="window.location.href='../training_list_userdetail/{{#each tmp}}{{this.Train_No}}{{/each}}'" class="btn btn-outline btn-default btn-lg"><i class="fa fa-group"></i> 사용자</button>
+                        </div>
+                        
+                        <div style="padding:10px;"></div>
+                        <!------------------------------------------------------------------------------------------>
+
+                        <table width="100%" border=0>
+                            <tr>
+                                <td width="48%">
+
+                                    <!-----------------------------------상세정보----------------------------------------------------->
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    세부사항
+                                                </div>
+
+                                                <!-- /.panel-heading -->
+                                                <div class="panel-body">
+                                                    <!------  상세정보 테이블 -->
+                                                    {{#each tmp}}
+                                                    <table border=0 style="min-width: 310px; height: 300px; max-width: 400px; margin: 0 ">
+                                                        <tr>
+                                                            <td>훈련제목</td>
+                                                            <td align=center>{{this.Train_Name}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>훈련타입</td>
+                                                            <td align=center>
+                                                                {{this.Train_Type}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>훈련 총 인원</td>
+                                                            <td align=center>{{this.Train_TotalPeo}} 명</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>훈련 시작일 </td>
+                                                            <td align=center>{{this.Start_Time}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>훈련 종료일 </td>
+                                                            <td align=center>{{this.Finish_Time}}</td>
+                                                        </tr>
+                                                    </table>
+                                                    {{/each}}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!---------------------------/. 상세정보--------------------------------------------------------->
+
+                                </td>
+                                <td width="1%">&nbsp;</td>
+                                <td width="48%">
+
+                                    <!-----------------------------------감염률(전체)------------------------------------------------->
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    공격 성공률
+                                                </div>
+
+                                                <!-- /.panel-heading -->
+                                                <div class="panel-body">
+                                                    <div id="container" style="min-width: 210px; height: 300px; max-width: 500px; margin: 0 auto"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!---------------------------/. 감염률(전체)-------------------------->
+
+                                </td>
+                            </tr>
+                            <!-----------------------------------그래프 3개 묶음------------------------------------------------->
+                            <tr>
+                                <td colspan=3 rospan=2>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    graph
+                                                </div>
+
+                                                <!-- /.panel-heading -->
+                                                <div class="panel-body">
+
+                                                    <table width="100%" border=0>
+                                                        <tr>
+                                                            <td width="33%">
+                                                                <div id="container1" style="min-width: 210px; height: 300px; max-width: 500px; margin: 0 auto"></div>
+                                                            </td>
+                                                            <td width="33%">
+                                                                <div id="container2" style="min-width: 200px; height: 280px; max-width: 480px; margin: 0 auto">></div>
+                                                            </td>
+                                                            <td width="33%">
+                                                                <div id="container3" style="min-width: 200px; height: 280px; max-width: 480px; margin: 0 auto">></div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!--------------------------------------------------------------------------->
+
+
+                    </div>
+                </div>
+                <!-- /.panel body -->
+            </div>
+        </div>
+        <!-- /.col-lg-6 -->
+
+    </div>
+    <!-- /.col-lg-6 -->
+
+
+
+    <!-- /.panel-body -->
+
+    <!-- /.panel -->
+
+
+
+    <!-- /#wrapper -->
+
+    <!-- /.col-lg-12 -->
+    <div class="modal-footer">
+        <button class="btn btn-default" type="button" onclick="go_before()">이전</button>
+        <button class="btn btn-default" type="button" onclick="go_next()">다음</button>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../../vendor/raphael/raphael.min.js"></script>
+    <script src="../../vendor/morrisjs/morris.min.js"></script>
+    <script src="../../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../../dist/js/sb-admin-2.js"></script>
+
+    <!-------------감염율 그래프---------------->
+    <script type="text/javascript">
+        // Make monochrome colors
+        var pieColors = (function() {
+            var colors = [],
+                base = Highcharts.getOptions().colors[0],
+                i;
+
+            for (i = 0; i < 10; i += 1) {
+                // Start out with a darkened base color (negative brighten), and end
+                // up with a much brighter color
+                colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
+            }
+            return colors;
+        }());
+
+        // Build the chart
+        Highcharts.chart('container', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ' '
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            colors: pieColors,
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                                distance: -50,
+                                filter: {
+                                    property: 'percentage',
+                                    operator: '>',
+                                    value: 4
+                                }
+                            }
+                        }
+                    },
+                    {{#each tmp}}
+                    series: [{
+                        name: '비율',
+                        data: [{
+                                name: '공격 성공',
+                                y: {{this.Train_Totalattackno}}/{{this.Train_TotalPeo}}*100
+                            },
+                            // { name: 'Internet Explorer', y: 11.84 },
+                            //  { name: 'Firefox', y: 10.85 },
+                            //  { name: 'Edge', y: 4.67 },
+                            {
+                                name: '안전',
+                                y: 100 - {{this.Train_Totalattackno}}/{{this.Train_TotalPeo}}*100
+                            }
+                            // { name: 'Other', y: 7.05 }
+                        ]
+                    }] {{/each}}
+                    });
+
+    </script>
+
+    <!-----------발송여부----------------->
+    <script type="text/javascript">
+        Highcharts.chart('container1', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: '이메일 <br>수신여부', //'Browser<br>shares<br>2017',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 30
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%']
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['발송완료', 70.0],
+                    // ['미발송', 30.0],
+                    //['Internet Explorer', 13],
+                    //['Edge', 3.78],
+                    //['Safari', 3.42],
+                    {
+                        name: '미발송',
+                        y: 30.0,
+                        dataLabels: {
+                            enabled: '미발송'
+                        }
+                    }
+                ]
+            }]
+        });
+
+    </script>
+
+    <!-----------------읽음/안읽음-------------------------------->
+    <script type="text/javascript">
+        Highcharts.chart('container2', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: '이메일 <br>읽음여부', //'Browser<br>shares<br>2017',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 30
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%']
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['발송완료', 70.0],
+                    // ['미발송', 30.0],
+                    //['Internet Explorer', 13],
+                    //['Edge', 3.78],
+                    //['Safari', 3.42],
+                    {
+                        name: '미발송',
+                        y: 30.0,
+                        dataLabels: {
+                            enabled: '미발송'
+                        }
+                    }
+                ]
+            }]
+        });
+
+    </script>
+    <!-----------------감염률 간단------------------------->
+    <script type="text/javascript">
+        Highcharts.chart('container3', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: '이메일 <br>수신여부', //'Browser<br>shares<br>2017',
+                align: 'center',
+                verticalAlign: 'middle',
+                y: 30
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        style: {
+                            fontWeight: 'bold',
+                            color: 'white'
+                        }
+                    },
+                    startAngle: -90,
+                    endAngle: 90,
+                    center: ['50%', '75%']
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                innerSize: '50%',
+                data: [
+                    ['발송완료', 70.0],
+                    // ['미발송', 30.0],
+                    //['Internet Explorer', 13],
+                    //['Edge', 3.78],
+                    //['Safari', 3.42],
+                    {
+                        name: '미발송',
+                        y: 30.0,
+                        dataLabels: {
+                            enabled: '미발송'
+                        }
+                    }
+                ]
+            }]
+        });
+
+    </script>
+
+
+</body>
+
+</html>
