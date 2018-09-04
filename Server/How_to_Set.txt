@@ -1,8 +1,8 @@
-1. ÇÑ±¹¾îÆÑ ¼³Ä¡ ¿Ï·á
-2. AD¼³Ä¡Àü ÄÄÇ»ÅÍ¸í º¯°æ
-3. IIS, AD ¼³Ä¡ ¿Ï·á
+ï»¿1. í•œêµ­ì–´íŒ© ì„¤ì¹˜ ì™„ë£Œ
+2. ADì„¤ì¹˜ì „ ì»´í“¨í„°ëª… ë³€ê²½
+3. IIS, AD ì„¤ì¹˜ ì™„ë£Œ
 
-4. exchage server (¸í·É¾î´Â ÀüºÎ Powershell ¸í·É¾î)
+4. exchage server (ëª…ë ¹ì–´ëŠ” ì „ë¶€ Powershell ëª…ë ¹ì–´)
 
 Install-WindowsFeature RSAT-ADDS 
 Install-WindowsFeature Server-Media-Foundation
@@ -16,6 +16,6 @@ C:\Users\Administrator\Desktop\ExchangeServer2016-x64-cu9\Setup.exe /PrepareSche
 C:\Users\Administrator\Desktop\ExchangeServer2016-x64-cu9\Setup.exe /PrepareAD /OrganizationName:"hermesmail" /IAcceptExchangeServerLicenseTerms
 C:\Users\Administrator\Desktop\ExchangeServer2016-x64-cu9\Setup.exe /PrepareAllDomains /IAcceptExchangeServerLicenseTerms
 
-4. exchange server ±¸µ¿ È®ÀÎ
-5. sql ¼­¹ö ¼³Ä¡
+4. exchange server êµ¬ë™ í™•ì¸
+5. sql ì„œë²„ ì„¤ì¹˜
 

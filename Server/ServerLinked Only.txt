@@ -1,19 +1,19 @@
-* 2016 ÇÑ±Û ÆĞÄ¡
+ï»¿* 2016 í•œê¸€ íŒ¨ì¹˜
 http://archmond.net/?p=7900
 
-* IIS ¼³Ä¡ Âü°í
+* IIS ì„¤ì¹˜ ì°¸ê³ 
 https://winadminsblog.wordpress.com/2016/03/21/web-server-iis-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B5%AC%EC%84%B1%ED%95%98%EA%B8%B0/
 
-* AD¼³Ä¡ Âü°í
+* ADì„¤ì¹˜ ì°¸ê³ 
 http://hope.pe.kr/261 *
 http://codesimu.tistory.com/7 **
 
-* exchange server ¼³Ä¡ Âü°í
+* exchange server ì„¤ì¹˜ ì°¸ê³ 
 http://archmond.net/?p=6518
 http://codesimu.tistory.com/25 **
 https://jhok.kr/2016/06/08/windows-server-2012-r2-exchange-server-2016-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B8%B0%EB%B3%B8%EC%84%A4%EC%A0%95/
 
-* 2016 powershell ¸í·É¾î Âü°í
+* 2016 powershell ëª…ë ¹ì–´ ì°¸ê³ 
 https://technet.microsoft.com/KO-KR/library/bb691354(v=exchg.160).aspx
 
 * exchange server 2016
@@ -23,11 +23,11 @@ https://www.microsoft.com/ko-kr/download/details.aspx?id=34992
 * netframework 4.5.2
 https://www.microsoft.com/ko-KR/download/details.aspx?id=42642
 
-* ¼³Ä¡ ÈÄ ±âº»¼³Á¤ Âü°í
+* ì„¤ì¹˜ í›„ ê¸°ë³¸ì„¤ì • ì°¸ê³ 
 http://archmond.net/?p=6627
 
-* exchange server ´©Àû ¾÷µ¥ÀÌÆ®
+* exchange server ëˆ„ì  ì—…ë°ì´íŠ¸
 https://www.microsoft.com/en-us/download/details.aspx?id=56363
 
-* MSSQL ¼³Ä¡
+* MSSQL ì„¤ì¹˜
 http://sqlmvp.tistory.com/56
