@@ -32,14 +32,64 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-
 var userids;
 var groupids;
 
+app.get('/public/template_url_attack/:id/:no',function(req,res){
+    var id = req.params.id;
+    var no = req.params.no;
+    
+    var sql1 = 'UPDATE Target set Targ_UrClick = 1 where Train_no = ? and Emp_No = ?';
+    conn.query(sql1,[id,no], function(err,tmp,fields){
+        res.render('template_url_attack',{
+
+        });
+    })
+})
+
+app.get('/public/pages/train_quit/:id',function (req, res){
+    var id = req.params.id;
+    
+    var sql1 = 'update training set train_state = 1 where train_no = ?';
+    conn.query(sql1,[id], function(err,tmp,fields){
+        res.redirect("../training_result.html");
+    });
+})
+
+// 훈련 결과 자세히보기
+app.get('/public/pages/training_result_traindetail/:id',function (req, res){
+    var id = req.params.id;
+    
+    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 1';
+    conn.query(sql1,[id], function(err,tmp,fields){
+            res.render('training_result_traindetail',{
+            tmp:tmp
+        });
+    });
+
+})
+
+// 훈련결과 사용자 자세히보기
+app.get('/public/pages/training_result_userdetail/:id',function (req, res){
+    var id = req.params.id;
+    
+    var sql1 = "SELECT * FROM Employee, Target where Target.Emp_No = Employee.Emp_No and Train_No = ?";
+    var sql2 = 'SELECT CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type, Train_No, Train_Name FROM training where Train_No = ? and Train_State = 1';
+    conn.query(sql1,[id], function(err,tmp,fields){
+        conn.query(sql2,[id],function(err,tmp2,fields){
+            res.render('training_result_userdetail',{
+                tmp:tmp,
+                tmp2:tmp2
+            });
+        })
+    });
+})
+
+// 훈련목록 자세히보기
 app.get('/public/pages/training_list_traindetail/:id',function (req, res){
     var id = req.params.id;
     
-    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, Train_Name, Train_Persent, Train_TotalPeo, Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" from Training where Train_No = ?';
+    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 0';
     conn.query(sql1,[id], function(err,tmp,fields){
             res.render('training_list_traindetail',{
             tmp:tmp
@@ -48,11 +98,12 @@ app.get('/public/pages/training_list_traindetail/:id',function (req, res){
 
 })
 
+// 훈련목록 사용자 자세히보기
 app.get('/public/pages/training_list_userdetail/:id',function (req, res){
     var id = req.params.id;
     
     var sql1 = "SELECT * FROM Employee, Target where Target.Emp_No = Employee.Emp_No and Train_No = ?";
-    var sql2 = "SELECT * FROM training where Train_No = ?";
+    var sql2 = 'SELECT CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type, Train_No, Train_Name FROM training where Train_No = ? and Train_State = 0';
     conn.query(sql1,[id], function(err,tmp,fields){
         conn.query(sql2,[id],function(err,tmp2,fields){
             res.render('training_list_userdetail',{
@@ -190,8 +241,10 @@ app.post('/public/pages/training_generate_end',function (req, res){
     
     console.log(userids,groupids);
     
-    var path ='public/template/tmp/' + training_product + '.html'; 
-    var givemedataplz = fs.readFileSync(path,'utf8');
+    var path1 ='public/template/tmp/' + training_product + '_1.html';
+    var path2 ='public/template/subtmp/' + training_product + '_2.html';
+    var givemedataplz1 = fs.readFileSync(path1,'utf8');
+    var givemedataplz2 = fs.readFileSync(path2,'utf8');
     
     if (groupids==null)
     {
@@ -201,14 +254,15 @@ app.post('/public/pages/training_generate_end',function (req, res){
         var sql1 = "Insert INTO Training (Train_Name, Train_Kind, Train_Template, Train_Sender, Train_Email, Train_EmSub, Train_EmContent ,Train_TotalPeo) VALUES (?,?,?,?,?,?,?,?)";
         var sql2 = "SELECT Train_No AS TNUM FROM Training where Train_Name = ?";
         var sql3 = "Insert INTO Target (Emp_No, Train_No) VALUES (?,?)";
-        var sql4 = "SELECT Emp_Email AS Mail FROM Employee where Emp_No = ?";
+        var sql4 = "SELECT Emp_No AS Eno, Emp_Email AS Mail FROM Employee where Emp_No = ?";
         
         conn.query(sql1, [training_name, training_type, training_product, training_sender, training_sendermail, training_title, training_message, training_length],       function (err, result, fields) {
             console.log(result);
         });
         
+        var num;
         conn.query(sql2, [training_name], function(err,result1,fields){
-            var num = result1[0].TNUM;
+            num = result1[0].TNUM;
             for(var i=0; i<userids.length; i++){
                 conn.query(sql3, [userids[i], num], function(err, result2, fields){
                     
@@ -238,7 +292,7 @@ app.post('/public/pages/training_generate_end',function (req, res){
                     from: training_sendermail, // sender address
                     to: result3[0].Mail, // list of receivers
                     subject: training_title, // Subject line
-                    html: givemedataplz // html body
+                    html: givemedataplz1 + num + '/' + result3[0].Eno + givemedataplz2 // html body
                 };
 
                 // send mail with defined transport object
@@ -323,7 +377,7 @@ app.post('/public/pages/training_generate_end',function (req, res){
                         from: training_sendermail, // sender address
                         to: result7[0].Mail, // list of receivers
                         subject: training_title, // Subject line
-                        html: givemedataplz // html body
+                        html: givemedataplz1 + num + '/' + result3[0].Eno + givemedataplz2 // html body
                     };
 
                     // send mail with defined transport object
@@ -660,9 +714,20 @@ app.post('/public/GroupInGroupDelete/:groupid', function (req, res) {
 // 훈련 목록 페이지 get
 app.get(['/public/pages/training_list.html'], function (req, res) {
     console.log("훈련 목록 페이지 접속");
-    var sql = 'select Train_No, Train_Name, Train_Persent, Train_TotalPeo, DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(Train_Finish, "%Y-%m-%d %k:%i") as "Finish_Time" from Training';
+    var sql = 'select Train_No, Train_Name, Train_TotalPeo, DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" from Training where Train_State = 0';
     conn.query(sql, function (err, values, fields) {
         res.render('training_list', {
+            values: values,
+        });
+    });
+});
+
+// 훈련 결과 페이지 get
+app.get(['/public/pages/training_result.html'], function (req, res) {
+    console.log("훈련 목록 페이지 접속");
+    var sql = 'select Train_No, Train_Name, Train_TotalPeo, DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" from Training where Train_State = 1';
+    conn.query(sql, function (err, values, fields) {
+        res.render('training_result', {
             values: values,
         });
     });

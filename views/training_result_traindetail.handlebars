@@ -286,15 +286,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">{{#each tmp}}{{this.Train_Name}}{{/each}}
-
-                        </h1>
+                        <h1 class="page-header">{{#each tmp}}{{this.Train_Name}}{{/each}}</h1>
 
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" onclick="window.location.href='../training_list_traindetail/{{#each tmp}}{{this.Train_No}}{{/each}}'" class="btn btn-outline btn-info btn-lg"><i class="fa fa-bar-chart-o"></i> 훈련 </button>
-                            <button type="button" onclick="window.location.href='../training_list_userdetail/{{#each tmp}}{{this.Train_No}}{{/each}}'" class="btn btn-outline btn-default btn-lg"><i class="fa fa-group"></i> 사용자</button>
+                            <button type="button" onclick="window.location.href='../training_result_traindetail/{{#each tmp}}{{this.Train_No}}{{/each}}'" class="btn btn-outline btn-info btn-lg"><i class="fa fa-bar-chart-o"></i> 훈련 </button>
+                            <button type="button" onclick="window.location.href='../training_result_userdetail/{{#each tmp}}{{this.Train_No}}{{/each}}'" class="btn btn-outline btn-default btn-lg"><i class="fa fa-group"></i> 사용자</button>
                         </div>
-                        <span style="float: right"><input type=button class="btn btn-outline btn-danger btn-lg" onclick="window.location.href='../Train_Quit/{{#each tmp}}{{this.Train_No}}{{/each}}'" value="훈련 종료"></span>
+
                         <div style="padding:10px;"></div>
                         <!------------------------------------------------------------------------------------------>
 
