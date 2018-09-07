@@ -1,18 +1,11 @@
-// express 모듈
 const express = require('express');
-// body-parser 모듈
 const bodyParser = require('body-parser');
-// handlebars 모듈
 const exphbs = require('express-handlebars');
-// path 모듈
 const path = require('path');
-// node mailer
 const nodemailer = require('nodemailer');
-// fs
 const fs = require('fs');
 const app = express();
 
-// mysql
 var mysql = require('mysql');
 
 var conn = mysql.createConnection({
@@ -39,13 +32,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
-// use in training generate
 var userids;
 var groupids;
 
-// url click update
-// id - Train_no
-// no - Emp_no
 app.get('/public/template_url_attack/:id/:no',function(req,res){
     var id = req.params.id;
     var no = req.params.no;
@@ -58,8 +47,6 @@ app.get('/public/template_url_attack/:id/:no',function(req,res){
     })
 })
 
-// 훈련 종료
-// id - Train_no
 app.get('/public/pages/train_quit/:id',function (req, res){
     var id = req.params.id;
     
@@ -69,12 +56,11 @@ app.get('/public/pages/train_quit/:id',function (req, res){
     });
 })
 
-// 종료된 훈련 자세히보기
-// id - Train_no
+// 훈련 결과 자세히보기
 app.get('/public/pages/training_result_traindetail/:id',function (req, res){
     var id = req.params.id;
     
-    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type2, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 1';
+    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 1';
     conn.query(sql1,[id], function(err,tmp,fields){
             res.render('training_result_traindetail',{
             tmp:tmp
@@ -83,8 +69,7 @@ app.get('/public/pages/training_result_traindetail/:id',function (req, res){
 
 })
 
-// 종료된 훈련 사용자 자세히보기
-// id - Train_no
+// 훈련결과 사용자 자세히보기
 app.get('/public/pages/training_result_userdetail/:id',function (req, res){
     var id = req.params.id;
     
@@ -104,7 +89,7 @@ app.get('/public/pages/training_result_userdetail/:id',function (req, res){
 app.get('/public/pages/training_list_traindetail/:id',function (req, res){
     var id = req.params.id;
     
-    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type2, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 0';
+    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 0';
     conn.query(sql1,[id], function(err,tmp,fields){
             res.render('training_list_traindetail',{
             tmp:tmp
