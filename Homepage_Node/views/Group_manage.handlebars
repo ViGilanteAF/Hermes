@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hermes Mail Solutions</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+
+    </script>
+
+    <!-------------------------------------------------------->
+    <!--------------------- 그룹 각종 설정 --------------------->
+    <!-------------------------------------------------------->
+    <script>
+        // <!-- 체크박스 전체선택-------------------------------------------------------------------->
+        // <!--http://aramk.tistory.com/21 -->
+        function totalcheckgroup() {
+            if ($("#all_checkboxgroup").is(':checked')) {
+                $("input[name=checkboxtestgroup").prop("checked", true);
+                document.getElementById("b_removegroup").className = "btn btn-outline btn-danger";
+            } else {
+                $("input[name=checkboxtestgroup").prop("checked", false);
+                document.getElementById("b_removegroup").className = "btn btn-default disabled";
+            }
+
+        }
+        // <!-- 그룹삭제 경고창?-------------------------------------------------------------------->
+        //http://aramk.tistory.com/26
+        function checkgroup() {
+            var temp = $("input:checkbox[name=checkboxtestgroup]:checked").length;
+
+
+            if (temp >= 1) {
+                if (confirm("선택하신 " + temp + " 그룹을 삭제하시겠습니까?")) {
+                    // 선택하고 확인을할시 submit이 된다.
+                    document.getElementById("groupform").submit();
+                    alert("삭제되었습니다.");
+                    $("input[name=checkboxtestgroup").prop("checked", false);
+                    $("input[name=allgroup]").prop("checked", false);
+                }
+            } else if (temp == 0) {
+                alert("삭제하실 그룹의 체크박스를 선택해주세요");
+            }
+        }
+
+        // 삭제 버튼 변경
+        function bcheckgroup() {
+            var temp = $("input:checkbox[name=checkboxtestgroup]:checked").length;
+            if (temp >= 1) {
+                document.getElementById("b_removegroup").className = "btn btn-outline btn-danger";
+            } else {
+                document.getElementById("b_removegroup").className = "btn btn-default disabled";
+            }
+        }
+
+        // 모달창 값 입력시 버튼 색 변경
+        function mykeydowngroup() {
+            var temp1 = $("input[name=group_name_add]").val();
+            var temp2 = $("input[name=group_note_add]").val();
+
+            if (temp1.length != 0 && temp2.length != 0) {
+                document.getElementById("submitFormgroup").className = "btn btn-outline btn-success";
+            } else {
+                document.getElementById("submitFormgroup").className = "btn btn-default";
+            }
+        }
+
+    </script>
+
+    <script>
+        // modal에서 submit 사용
+        $('#button').submit(function(e) {
+            e.preventDefault();
+            // Coding
+            $('#IDModal').modal('togle'); //or  $('#IDModal').modal('hide');
+            return false;
+        });
+
+    </script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Hermes Mail Solutions</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="../pages/index.html"><i class="fa fa-home fa-fw"></i> 메인 화면 </a>
+                        </li>
+                        <li>
+                            <a href="../pages/template.html"><i class="fa fa-th-large fa-fw"></i> 템플릿 관리 </a>
+                        </li>
+                        <li>
+                            <a href="../pages/Group_manage"><i class="fa  fa-user fa-fw"></i> 사용자 / 그룹 관리 </a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa  fa-calendar fa-fw"></i> 훈련 관리 <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="../pages/training_generate.html">훈련 생성 </a>
+                                </li>
+                                <li>
+                                    <a href="../pages/training_list.html">훈련 목록 </a>
+                                </li>
+                                <li>
+                                    <a href="../pages/training_result.html">훈련 결과 </a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="../pages/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">사용자 / 그룹 관리 </h1>
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" onclick="window.location.href='/public/pages/User_manage'" class="btn btn-outline btn-default btn-lg"><i class="fa fa-user"></i> 사용자</button>
+                            <button type="button" onclick="window.location.href='/public/pages/Group_manage'" class="btn btn-outline btn-info btn-lg"><i class="fa fa-group"></i> 그룹</button>
+                        </div>
+
+                        <div style="padding:10px;"></div>
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+
+                                <!--------------------------------------------------------------------------------------------------------------->
+                                <!--------------------------------------- 그룹 탭 시작------------------------------------------------------------>
+                                <!--------------------------------------------------------------------------------------------------------------->
+
+                                <!--------------------------------------------------------------------------------------------------------------->
+                                <form method="post" name="frm" id="groupform" action="/public/groupdelete">
+                                    <div style="padding:5px;"></div>
+                                    <div align=right>
+                                        <input type=button class="btn btn-outline btn-success" data-toggle="modal" data-target="#addgroup" value="그룹추가">
+                                        <input type=button id="b_removegroup" class="btn btn-default disabled" value="그룹삭제" Onclick="checkgroup()">
+                                    </div>
+                                    <div>
+                                    <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align :center;"><input type="checkbox" name="allgroup" id="all_checkboxgroup" onClick="totalcheckgroup();"></th>
+                                                <th style="text-align :center;">그룹번호</th>
+                                                <th style="text-align :center;">그룹명</th>
+                                                <th style="text-align :center;">비고</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- handlebars의 each문을 사용하여 데이터를 출력한다.-->
+                                            {{#each values2}}
+                                            <tr>
+                                                <center>
+                                                    <td><input type=checkbox name="checkboxtestgroup" Onclick="bcheckgroup()" value="{{this.Group_No}}"></td>
+                                                    <td>{{this.Group_No}}</td>
+                                                    <td><a href="../pages/Group_page/{{this.Group_No}}">{{this.Group_Name}}</a></td>
+                                                    <td>{{this.Group_Note}}</td>
+                                                </center>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                    <!-- /.col-lg-12 -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--------------------------------------------------------------------------------------------------------------->
+                    <!---------------------------------------그룹 탭 끝--------------------------------------------------------------->
+                    <!--------------------------------------------------------------------------------------------------------------->
+                </div>
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
+    </div>
+
+    <!------------------------------------------그룹 추가 화면-------------------------------------------------------------->
+    <!-- form의 method와 action을 추가 그룹 추가의 action은 "/public/add2" -->
+    <form id="contact_form" method=post action="/public/groupadd">
+        <div id="addgroup" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="classModalLabel">
+                            그룹 추가
+                        </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table id="classTable" class="table table-bordered">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                <div>
+                                    <label align=left>그룹명</label>
+                                    <input type="text" class="form-control" name="group_name_add" onkeydown="mykeydowngroup()" placeholder="ex) 그룹명">
+                                </div>
+                                <div style="padding:10px;">
+
+                                </div>
+                                <div>
+                                    <label>비고</label>
+                                    <input type="text" class="form-control" name="group_note_add" onkeydown="mykeydowngroup()" placeholder="ex) note">
+                                </div>
+                                <div style="padding:10px;">
+
+                                </div>
+                                <p>&nbsp;</p>
+                                <div class="modal-footer">
+                                    <button type="submit" id="submitFormgroup" class="btn btn-default disabled"> 추가하기 </button>
+                                </div>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+</body>
+
+</html>

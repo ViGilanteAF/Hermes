@@ -1,11 +1,18 @@
+// express 모듈
 const express = require('express');
+// body-parser 모듈
 const bodyParser = require('body-parser');
+// handlebars 모듈
 const exphbs = require('express-handlebars');
+// path 모듈
 const path = require('path');
+// node mailer
 const nodemailer = require('nodemailer');
+// fs
 const fs = require('fs');
 const app = express();
 
+// mysql
 var mysql = require('mysql');
 
 var conn = mysql.createConnection({
@@ -32,13 +39,17 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 
+// use in training generate
 var userids;
 var groupids;
 
+// url click update
+// id - Train_no
+// no - Emp_no
 app.get('/public/template_url_attack/:id/:no',function(req,res){
     var id = req.params.id;
     var no = req.params.no;
-
+    
     var sql1 = 'UPDATE Target set Targ_UrClick = 1 where Train_no = ? and Emp_No = ?';
     conn.query(sql1,[id,no], function(err,tmp,fields){
         res.render('template_url_attack',{
@@ -47,20 +58,23 @@ app.get('/public/template_url_attack/:id/:no',function(req,res){
     })
 })
 
+// 훈련 종료
+// id - Train_no
 app.get('/public/pages/train_quit/:id',function (req, res){
     var id = req.params.id;
-
+    
     var sql1 = 'update training set train_state = 1 where train_no = ?';
     conn.query(sql1,[id], function(err,tmp,fields){
         res.redirect("../training_result.html");
     });
 })
 
-// 훈련 결과 자세히보기
+// 종료된 훈련 자세히보기
+// id - Train_no
 app.get('/public/pages/training_result_traindetail/:id',function (req, res){
     var id = req.params.id;
-
-    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 1';
+    
+    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type2, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 1';
     conn.query(sql1,[id], function(err,tmp,fields){
             res.render('training_result_traindetail',{
             tmp:tmp
@@ -69,10 +83,11 @@ app.get('/public/pages/training_result_traindetail/:id',function (req, res){
 
 })
 
-// 훈련결과 사용자 자세히보기
+// 종료된 훈련 사용자 자세히보기
+// id - Train_no
 app.get('/public/pages/training_result_userdetail/:id',function (req, res){
     var id = req.params.id;
-
+    
     var sql1 = "SELECT * FROM Employee, Target where Target.Emp_No = Employee.Emp_No and Train_No = ?";
     var sql2 = 'SELECT CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type, Train_No, Train_Name FROM training where Train_No = ? and Train_State = 1';
     conn.query(sql1,[id], function(err,tmp,fields){
@@ -88,8 +103,8 @@ app.get('/public/pages/training_result_userdetail/:id',function (req, res){
 // 훈련목록 자세히보기
 app.get('/public/pages/training_list_traindetail/:id',function (req, res){
     var id = req.params.id;
-
-    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 0';
+    
+    var sql1 = 'select Train_No, CASE WHEN Train_Kind = 1 THEN "피싱 훈련" WHEN Train_Kind = 2 THEN "첨부 파일 훈련" ELSE "자격증명 훈련" END as Train_Type, CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type2, Train_Name, Train_TotalPeo, FLOOR((Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo)/Train_TotalPeo*100) as "Train_Totalattackrate" ,Train_FileCliPeo+Train_UrCliPeo+Train_InfoPeo as "Train_Totalattackno" , DATE_FORMAT(Train_Start, "%Y-%m-%d %k:%i") as "Start_Time", DATE_FORMAT(date_add(Train_Finish, Interval 7 day), "%Y-%m-%d %k:%i") as "Finish_Time" , Train_RecvMailPeo, Train_DelEmPeo/Train_TotalPeo AS "Train_DelEmPeoRate",Train_DelEmPeo, Train_ClickPeo/Train_TotalPeo AS "Train_ClickPeoRate", Train_ClickPeo, Train_SpamPeo/Train_TotalPeo AS "Train_SpamPeoRate", Train_SpamPeo from Training where Train_No = ? and Train_State = 0';
     conn.query(sql1,[id], function(err,tmp,fields){
             res.render('training_list_traindetail',{
             tmp:tmp
@@ -101,7 +116,7 @@ app.get('/public/pages/training_list_traindetail/:id',function (req, res){
 // 훈련목록 사용자 자세히보기
 app.get('/public/pages/training_list_userdetail/:id',function (req, res){
     var id = req.params.id;
-
+    
     var sql1 = "SELECT * FROM Employee, Target where Target.Emp_No = Employee.Emp_No and Train_No = ?";
     var sql2 = 'SELECT CASE WHEN Train_Kind = 1 THEN "URL 클릭" WHEN Train_Kind = 2 THEN "첨부 파일 클릭" ELSE "자격 증명 입력" END as Train_Type, Train_No, Train_Name FROM training where Train_No = ? and Train_State = 0';
     conn.query(sql1,[id], function(err,tmp,fields){
@@ -119,9 +134,9 @@ app.post('/public/pages/training_generate_template',function (req, res){
     var training_name = req.body.Training_name;
     var training_type = req.body.Training_type;
     console.log(training_name, training_type);
-
+    
     var sql1 = "SELECT * FROM Template where template_type = ?";
-
+    
     conn.query(sql1,[training_type],function(err,tmp,fields){
         res.render('training_generate_template',{
             training_name:training_name,
@@ -136,7 +151,7 @@ app.post('/public/pages/training_generate_sender',function (req, res){
     var training_type = req.body.Training_type;
     var training_product = req.body.Training_product;
     console.log(training_name, training_type);
-
+    
     var sql1 = "SELECT * FROM Template where template_No = ?";
     conn.query(sql1,[training_product],function(err,tmp,fields){
         res.render('training_generate_sender',{
@@ -238,43 +253,43 @@ app.post('/public/pages/training_generate_end',function (req, res){
     var training_message = req.body.Training_message;
     // 유저 수
     var training_length;
-
+    
     console.log(userids,groupids);
-
+    
     var path1 ='public/template/tmp/' + training_product + '_1.html';
     var path2 ='public/template/subtmp/' + training_product + '_2.html';
     var givemedataplz1 = fs.readFileSync(path1,'utf8');
     var givemedataplz2 = fs.readFileSync(path2,'utf8');
-
+    
     if (groupids==null)
     {
         if(userids != null)
             training_length = userids.length;
-        console.log("add employee databases");
+        console.log("add employee databases");    
         var sql1 = "Insert INTO Training (Train_Name, Train_Kind, Train_Template, Train_Sender, Train_Email, Train_EmSub, Train_EmContent ,Train_TotalPeo) VALUES (?,?,?,?,?,?,?,?)";
         var sql2 = "SELECT Train_No AS TNUM FROM Training where Train_Name = ?";
         var sql3 = "Insert INTO Target (Emp_No, Train_No) VALUES (?,?)";
         var sql4 = "SELECT Emp_No AS Eno, Emp_Email AS Mail FROM Employee where Emp_No = ?";
-
+        
         conn.query(sql1, [training_name, training_type, training_product, training_sender, training_sendermail, training_title, training_message, training_length],       function (err, result, fields) {
             console.log(result);
         });
-
+        
         var num;
         conn.query(sql2, [training_name], function(err,result1,fields){
             num = result1[0].TNUM;
             for(var i=0; i<userids.length; i++){
                 conn.query(sql3, [userids[i], num], function(err, result2, fields){
-
+                    
                 });
             }
         })
-
+        
 
         for(var i=0; i<userids.length; i++){
 
             conn.query(sql4, [userids[i]], function(err,result3,fields){
-
+                
                 let transporter = nodemailer.createTransport({
                     host: '58.141.234.99',
                     port: 587,
@@ -308,8 +323,8 @@ app.post('/public/pages/training_generate_end',function (req, res){
     }
     else if (userids==null)
     {
-        console.log("add groups databases");
-
+        console.log("add groups databases");    
+         
         var allemp;
         var sql2 = "select Count(Emp_No) AS cempno from groupsin where group_no = ?";
         var sql3 = "select Emp_No AS empno from groupsin where group_no = ?";
@@ -335,7 +350,7 @@ app.post('/public/pages/training_generate_end',function (req, res){
                 allemp = value[0].cempno;
                 conn.query(sql1, [training_name, training_type, training_product, training_sender, training_sendermail, training_title, training_message, value[0].cempno], function (err, result, fields) {
                     func3();
-                });
+                });  
             })
         }
 
@@ -388,7 +403,7 @@ app.post('/public/pages/training_generate_end',function (req, res){
                         console.log('Message sent: %s', info.messageId);
                         console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
                     });
-                })
+                })        
             }
             setTimeout(func4, 500);
         })
@@ -400,15 +415,15 @@ app.post('/public/pages/training_generate_end',function (req, res){
             })
         }
     }
-
-
+        
+    
     res.redirect("training_list.html");
 });
 
 // 템플릿 관리페이지
 app.get('/public/pages/template.html',function (req, res){
     var sql1 = "SELECT * FROM Template";
-
+    
     conn.query(sql1,function(err,tmp,fields){
         res.render('template',{
             tmp:tmp
@@ -431,7 +446,7 @@ app.get('/public/pages/User_page/:userid', function (req, res) {
                     values1: values1,
                     values2: values2,
                     values3: values3
-                });
+                });  
             })
         });
     });
@@ -525,7 +540,7 @@ app.get('/public/pages/GroupInUserAllDelete/:userid',function(req,res){
     })
     res.redirect("/public/pages/GroupInUserAddDelete/"+userid+"/1/1")
 });
-
+    
 
 
 // 사용자 그룹 할당 페이지 입장
@@ -543,24 +558,24 @@ app.get('/public/pages/GroupInUserAddDelete/:userid/:page1/:page2', function (re
     var offset2 = (limit * page2) - limit;
     // 사용자 기본키
     var userid = req.params.userid;
-
+    
     // 사용자가 소속되지 않은 그룹 페이징 제외
     // 'SELECT * FROM groups WHERE group_no NOT IN (SELECT groups.group_no FROM groups JOIN groupsin WHERE groups.group_no = groupsin.group_no AND groupsin.emp_no = ? ORDER BY groups.group_no);';
     // 사용자가 소속되지 않은 그룹
     var sql1 = 'SELECT * FROM groups WHERE group_no NOT IN (SELECT groups.group_no FROM groups JOIN groupsin WHERE groups.group_no = groupsin.group_no AND groupsin.emp_no = ? ORDER BY groups.group_no) ORDER BY group_no ASC LIMIT ' + offset1 + ','+limit;
     // 사용자가 소속되지 않은 그룹의 페이징 값
     var sql4 = 'SELECT Ceil(Count(*)/'+limit+') AS "counts" FROM groups WHERE group_no NOT IN (SELECT groups.group_no FROM groups JOIN groupsin WHERE groups.group_no = groupsin.group_no AND groupsin.emp_no = ? ORDER BY groups.group_no)';
-
+    
     // 사용자가 소속된 그룹 페이징 제외
     // 'SELECT * FROM groups JOIN groupsin WHERE groups.group_no = groupsin.group_no AND groupsin.emp_no = ? ORDER BY groups.group_no;'
     // 사용자가 소속된 그룹
     var sql2 = 'SELECT * FROM groups JOIN groupsin WHERE groups.group_no = groupsin.group_no AND groupsin.emp_no = ? ORDER BY groups.group_no ASC LIMIT ' + offset2 + ','+limit;
     // 사용자가 소속된 그룹의 페이징 값
     var sql5 = 'SELECT Ceil(Count(*)/'+limit+') AS "counts" FROM groups JOIN groupsin WHERE groups.group_no = groupsin.group_no AND groupsin.emp_no = ?';
-
+    
     // 사용자 이름
     var sql3 = 'SELECT * FROM employee WHERE emp_no = ?';
-
+    
     conn.query(sql1, [userid], function (err, values1, fields) {
         conn.query(sql2, [userid], function (err, values2, fields) {
             conn.query(sql3, [userid], function (err, username, fields) {
@@ -635,21 +650,21 @@ app.get('/public/pages/GroupInGroupAddDelete/:groupid/:page1/:page2', function (
     var offset2 = (limit * page2) - limit;
     // 그루비룸
     var groupid = req.params.groupid;
-
+    
     // 그룹에 소속되지 않은 사용자 페이징 제외
-    // 'SELECT * FROM employee WHERE emp_no NOT IN (SELECT employee.emp_no FROM employee JOIN groupsin WHERE employee.emp_no = groupsin.emp_no AND group_no = (?));';
+    // 'SELECT * FROM employee WHERE emp_no NOT IN (SELECT employee.emp_no FROM employee JOIN groupsin WHERE employee.emp_no = groupsin.emp_no AND group_no = (?));'; 
     // 그룹에 소속되지 않은 사용자
     var sql1 = 'SELECT * FROM employee WHERE emp_no NOT IN (SELECT employee.emp_no FROM employee JOIN groupsin WHERE employee.emp_no = groupsin.emp_no AND group_no = ? ORDER BY employee.emp_no) ORDER BY emp_no ASC LIMIT ' + offset1 + ','+limit;
     // 그룹에 소속되지 않은 사용자의 페이징 값
     var sql4 = 'SELECT Ceil(Count(*)/'+limit+') AS "counts" FROM employee WHERE emp_no NOT IN (SELECT employee.emp_no FROM employee JOIN groupsin WHERE employee.emp_no = groupsin.emp_no AND group_no = ?)';
-
+    
     // 그룹에 소속된 사용자 페이징 제외
     // 'SELECT * FROM employee JOIN groupsin WHERE employee.emp_no = groupsin.emp_no AND group_no = (?) ORDER BY employee.emp_no;'
     // 그룹에 소속된 사용자
     var sql2 = 'SELECT * FROM employee JOIN groupsin WHERE employee.emp_no = groupsin.emp_no AND group_no = ? ORDER BY employee.emp_no ASC LIMIT ' + offset2 + ','+limit;
     // 그룹에 소속된 사용자의 페이징 값
     var sql5 = 'SELECT Ceil(Count(*)/'+limit+') AS "counts" FROM employee JOIN groupsin WHERE employee.emp_no = groupsin.emp_no AND group_no = ?';
-
+    
     // 그룹 데이터
     var sql3 = 'SELECT * FROM groups WHERE group_no = (?)'
     conn.query(sql1, [groupid], function (err, values1, fields) {
@@ -840,7 +855,7 @@ app.post('/public/pages/send', (req, res) => {
     const output = `
     <p>You have a new contact request</p>
     <h3>Contact Details</h3>
-    <ul>
+    <ul>  
       <li>받는사람이름: ${req.body.recvname}</li>
       <li>받는사람메일: ${req.body.recvmail}</li>
     </ul>

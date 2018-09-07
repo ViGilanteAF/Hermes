@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hermes Mail Solutions</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<script>
+    function go_next() {
+        location.href = "training_generate_result.html"
+    }
+
+    function go_before() {
+        history.back();
+    }
+
+</script>
+
+<body>
+
+    <div id="wrapper" width="15" align="left">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Hermes Mail Solutions</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="index.html"><i class="fa fa-home fa-fw"></i> 메인 화면 </a>
+                        </li>
+                        <li>
+                            <a href="template.html"><i class="fa fa-th-large fa-fw"></i> 템플릿 관리 </a>
+                        </li>
+                        <li>
+                            <a href="../pages/ug_manage.html"><i class="fa  fa-user fa-fw"></i> 사용자 / 그룹 관리 </a>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa  fa-calendar fa-fw"></i> 훈련 관리 <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="training_generate.html">훈련 생성 </a>
+                                </li>
+                                <li>
+                                    <a href="training_list.html">훈련 목록 </a>
+                                </li>
+                                <li>
+                                    <a href="training_result.html">훈련 결과 </a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"> 훈련생성 - 훈련검토 </h1>
+                </div>
+
+
+
+                <!------------------------------Progress Bar------------------------------------------>
+                <div class="progress">
+                    <div class="circle done">
+                        <span class="label">1</span>
+                        <span class="title">훈련생성 　　</span>
+                    </div>
+                    <span class="bar done"></span>
+                    <div class="circle done">
+                        <span class="label">2</span>
+                        <span class="title">탬플릿선택 　　</span>
+                    </div>
+                    <span class="bar done"></span>
+                    <div class="circle done">
+                        <span class="label">3</span>
+                        <span class="title">훈련대상 선택</span>
+                    </div>
+                    <span class="bar done"></span>
+                    <div class="circle active">
+                        <span class="label">4</span>
+                        <span class="title">훈련검토 　　</span>
+                    </div>
+                </div>
+                <!------------------------------------------------------------------------>
+                <h4><b> 검토 및 예약</b></h4>
+                생성할 캠페인을 최종 검토합니다.<br><br>
+
+
+                <!---------------------------------------------------------------------->
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5><b>  캠페인 시작일</b></h5>
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                <input type=radio checked> 즉시시작 &nbsp;<input type=radio disabled> 예약된 시간에 시작
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table>
+                                        <tr>
+                                            <td><input type=date readonly>&nbsp;&nbsp;</td>
+                                            <td><input type=time readonly></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5><b>  캠페인 종료일</b></h5>
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                <input type=radio checked> 자동종료 &nbsp;<input type=radio disabled> 예약된 시간에 종료
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table>
+                                        <tr>
+                                            <td><input type=date readonly>&nbsp;&nbsp;</td>
+                                            <td><input type=time readonly></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5><b> 이메일</b></h5>
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                공격
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table>
+                                        <tr>
+                                            <td rowspan="6" width="175" height="100"><img src="example.PNG"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>어려움 :&nbsp; </td>
+                                            <td name="level"> 힘듦 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>보낸 사람 이름 :&nbsp; </td>
+                                            <td name="Train_Sender"> Google </td>
+                                        </tr>
+                                        <tr>
+                                            <td>보낸 사람 이메일 :&nbsp; </td>
+                                            <td name="Train_Email"> no-reply@google-mail.com </td>
+                                        </tr>
+                                        <tr>
+                                            <td>제목 :&nbsp; </td>
+                                            <td name="Train_EmSub"> 누군가 암호가 있습니다. </td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp; </td>
+                                            <td name="level"> <input type="button" value="Send Me A Test Email"> </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.col-lg-12 -->
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" onclick="go_before()">이전</button>
+                    <button class="btn btn-default" type="button" onclick="go_next()">다음</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-wrapper -->
+
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../vendor/raphael/raphael.min.js"></script>
+    <script src="../vendor/morrisjs/morris.min.js"></script>
+    <script src="../data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
