@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hermes Mail Solutions</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/public/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/public/vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <!-- 그래프 -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
+
+
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Hermes Mail Solutions</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="/index.html"><i class="fa fa-home fa-fw"></i> 메인 화면 </a>
+                        </li>
+                        <li>
+                            <a href="/template.html"><i class="fa fa-th-large fa-fw"></i> 템플릿 관리 </a>
+                        </li>
+                        <li>
+                            <a href="/User_manage"><i class="fa  fa-user fa-fw"></i> 사용자 / 그룹 관리 </a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa  fa-calendar fa-fw"></i> 훈련 관리 <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/training_generate.html">훈련 생성 </a>
+                                </li>
+                                <li>
+                                    <a href="/training_list.html">훈련 목록 </a>
+                                </li>
+                                <li>
+                                    <a href="/training_result.html">훈련 결과 </a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">메인 화면 </h1>
+
+                    <div class="main-content">
+                        <div class="section__content section__content--p30">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    </div>
+                                </div>
+                                <div class="row m-t-25">
+
+                                    <div class="col-sm-10 col-lg-4">
+                                        <div class="overview-item overview-item--c1">
+                                            <div class="overview__inner">
+                                                <div class="overview-box clearfix">
+                                                    <div class="icon">
+                                                        <i class="zmdi zmdi-account-o"></i>
+
+                                                        <div class="text">
+                                                            <h2>예약훈련&emsp;&emsp;&emsp;100</h2><br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-4">
+                                        <div class="overview-item overview-item--c2">
+                                            <div class="overview__inner">
+                                                <div class="overview-box clearfix">
+                                                    <div class="icon">
+                                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                                        <div class="text">
+                                                            <h2>진행훈련&emsp;&emsp;&emsp;{{#each values1}}
+                                                            {{this.count}}
+                                                               {{/each}}
+                                                            </h2>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-10 col-lg-4">
+                                        <div class="overview-item overview-item--c3">
+                                            <div class="overview__inner">
+                                                <div class="overview-box clearfix">
+                                                    <div class="icon">
+                                                        <i class="zmdi zmdi-calendar-note"></i>
+
+                                                        <div class="text">
+                                                            <h2>완료훈련&emsp;&emsp;&emsp;100</h2><br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                예약훈련
+                                            </div>
+                                            <!-- /.panel-heading -->
+                                            <div class="panel-body">
+                                                <div class="col-lg-8 table-responsive">
+                                                    <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="text-align :center;">훈련번호</th>
+                                                                <th style="text-align :center;">훈련명</th>
+                                                                <th style="text-align :center;">훈련시작일</th>
+                                                                <th style="text-align :center;">훈련종료일</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>Mark</td>
+                                                                <td>Otto</td>
+                                                                <td>@mdo</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>2</td>
+                                                                <td>Jacob</td>
+                                                                <td>Thornton</td>
+                                                                <td>@fat</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>3</td>
+                                                                <td>Larry</td>
+                                                                <td>the Bird</td>
+                                                                <td>@twitter</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="col-lg-4">
+
+                                                    <div class="metric participation" data-ratio=".100">
+                                                        <svg viewBox="0 0 1000 500">
+            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
+            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="540" y="300" font-size="140" font-weight="bold">0%</text>
+            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">예약훈련</text>
+          </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+
+
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            진행훈련
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="col-lg-8 table-responsive">
+                                                <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align :center;">훈련번호</th>
+                                                            <th style="text-align :center;">훈련명</th>
+                                                            <th style="text-align :center;">훈련시작일</th>
+                                                            <th style="text-align :center;">훈련종료일</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each values2}}
+                                                        <tr>
+                                                            <center>
+                                                                <td>{{this.Train_No}}</td>
+                                                                <td>{{this.Train_Name}}</td>
+                                                                <td>{{this.Start_Time}}</td>
+                                                                <td>{{this.Finish_Time}}</td>
+                                                            </center>
+                                                        </tr>
+                                                        {{/each}}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="metric completion" data-ratio=".30">
+                                                    <svg viewBox="0 0 1000 500">
+            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
+            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="500" y="300" font-size="140" font-weight="bold">0%</text>
+            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">진행훈련</text>
+          </svg>
+                                                </div>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            완료훈련
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="col-lg-8 table-responsive">
+                                                <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align :center;">훈련번호</th>
+                                                            <th style="text-align :center;">훈련명</th>
+                                                            <th style="text-align :center;">훈련시작일</th>
+                                                            <th style="text-align :center;">훈련종료일</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Mark</td>
+                                                            <td>Otto</td>
+                                                            <td>@mdo</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Jacob</td>
+                                                            <td>Thornton</td>
+                                                            <td>@fat</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>Larry</td>
+                                                            <td>the Bird</td>
+                                                            <td>@twitter</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="metric blocked" data-ratio=".27">
+                                                    <svg viewBox="0 0 1000 500">
+            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
+            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="500" y="300" font-size="140" font-weight="bold">0%</text>
+            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">완료훈련</text>
+          </svg>
+                                                </div>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+
+    <script src="/public/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/public/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/public/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/public/vendor/raphael/raphael.min.js"></script>
+    <script src="/public/vendor/morrisjs/morris.min.js"></script>
+    <script src="/public/data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/public/dist/js/sb-admin-2.js"></script>
+<script>
+    $(function() {
+
+  var polar_to_cartesian, svg_circle_arc_path, animate_arc;
+
+  polar_to_cartesian = function(cx, cy, radius, angle) {
+    var radians;
+    radians = (angle - 90) * Math.PI / 180.0;
+    return [Math.round((cx + (radius * Math.cos(radians))) * 100) / 100, Math.round((cy + (radius * Math.sin(radians))) * 100) / 100];
+  };
+
+  svg_circle_arc_path = function(x, y, radius, start_angle, end_angle) {
+    var end_xy, start_xy;
+    start_xy = polar_to_cartesian(x, y, radius, end_angle);
+    end_xy = polar_to_cartesian(x, y, radius, start_angle);
+    return "M " + start_xy[0] + " " + start_xy[1] + " A " + radius + " " + radius + " 0 0 0 " + end_xy[0] + " " + end_xy[1];
+  };
+
+  animate_arc = function(ratio, svg, perc) {
+    var arc, center, radius, startx, starty;
+    arc = svg.path('');
+    center = 500;
+    radius = 450;
+    startx = 0;
+    starty = 450;
+    return Snap.animate(0, ratio, (function(val) {
+      var path;
+      arc.remove();
+      path = svg_circle_arc_path(500, 500, 450, -90, val * 180.0 - 90);
+      arc = svg.path(path);
+      arc.attr({
+        class: 'data-arc'
+      });
+      perc.text(Math.round(val * 100) + '%');
+    }), Math.round(2000 * ratio), mina.easeinout);
+  };
+
+  $('.metric').each(function() {
+    var ratio, svg, perc;
+    ratio = $(this).data('ratio');
+    svg = Snap($(this).find('svg')[0]);
+    perc = $(this).find('text.percentage');
+    animate_arc(ratio, svg, perc);
+  });
+});
+    </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

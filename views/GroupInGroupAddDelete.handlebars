@@ -12,19 +12,19 @@
     <title>Hermes Mail Solutions</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../../../../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="../../../../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="/public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../../../../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/public/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="../../../../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="/public/vendor/morrisjs/morris.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../../../../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
@@ -106,32 +106,32 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="../../../index.html"><i class="fa fa-home fa-fw"></i> 메인 화면 </a>
+                            <a href="/index.html"><i class="fa fa-home fa-fw"></i> 메인 화면 </a>
                         </li>
                         <li>
-                            <a href="../../../template.html"><i class="fa fa-th-large fa-fw"></i> 템플릿 관리 </a>
+                            <a href="/template.html"><i class="fa fa-th-large fa-fw"></i> 템플릿 관리 </a>
                         </li>
                         <li>
-                            <a href="../../../User_manage"><i class="fa  fa-user fa-fw"></i> 사용자 / 그룹 관리 </a>
+                            <a href="/User_manage"><i class="fa  fa-user fa-fw"></i> 사용자 / 그룹 관리 </a>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#"><i class="fa  fa-calendar fa-fw"></i> 훈련 관리 <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="../../../training_generate.html">훈련 생성 </a>
+                                    <a href="/training_generate.html">훈련 생성 </a>
                                 </li>
                                 <li>
-                                    <a href="../../../training_list.html">훈련 목록 </a>
+                                    <a href="/training_list.html">훈련 목록 </a>
                                 </li>
                                 <li>
-                                    <a href="../../../training_result.html">훈련 결과 </a>
+                                    <a href="/training_result.html">훈련 결과 </a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="../mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
                         </li>
                     </ul>
                 </div>
@@ -144,7 +144,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">{{#each titlename}}{{this.Group_Name}}{{/each}} - 사용자 할당 페이지
-                        <span style="float: right"><input type=button class="btn btn-default" onclick="window.location.href='/public/pages/group_page/{{#each titlename}}{{this.Group_No}}{{/each}}'" value="뒤로가기">
+                        <span style="float: right"><input type=button class="btn btn-default" onclick="window.location.href='/group_page/{{#each titlename}}{{this.Group_No}}{{/each}}'" value="뒤로가기">
                         </span>
                     </h1>
                 </div>
@@ -153,12 +153,12 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <form method='post' action='/public/GroupInGroupAdd/{{#each titlename}}{{this.Group_No}}{{/each}}'>
+                    <form method='post' action='/GroupInGroupAdd/{{#each titlename}}{{this.Group_No}}{{/each}}'>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3>소속되지 않은 사용자
                                     <span style="float: right">
-                                    <input type=button class="btn btn-outline btn-success" onclick="window.location.href='/public/pages/GroupInGroupAllAdd/{{#each titlename}}{{this.Group_No}}{{/each}}'" value="전체 사용자 할당">
+                                    <input type=button class="btn btn-outline btn-success" onclick="window.location.href='/GroupInGroupAllAdd/{{#each titlename}}{{this.Group_No}}{{/each}}'" value="전체 사용자 할당">
                                     <input type=submit class="btn btn-outline btn-success" value="그룹에 할당하기">
                                 </span></h3>
                             </div>
@@ -205,12 +205,12 @@
                 </div>
 
                 <div class="col-md-6">
-                    <form method='post' action='/public/GroupInGroupDelete/{{#each titlename}}{{this.Group_No}}{{/each}}'>
+                    <form method='post' action='/GroupInGroupDelete/{{#each titlename}}{{this.Group_No}}{{/each}}'>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3>소속된 사용자
                                     <span style="float: right">
-                                   <input type=button class="btn btn-outline btn-danger" onclick="window.location.href='/public/pages/GroupInGroupAllDelete/{{#each titlename}}{{this.Group_No}}{{/each}}'" value="전체 사용자 제외">
+                                   <input type=button class="btn btn-outline btn-danger" onclick="window.location.href='/GroupInGroupAllDelete/{{#each titlename}}{{this.Group_No}}{{/each}}'" value="전체 사용자 제외">
                                     <input type=submit class="btn btn-outline btn-danger" value="그룹에서 제외하기">
                                 </span></h3>
                             </div>
@@ -262,21 +262,21 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../../../../vendor/jquery/jquery.min.js"></script>
+    <script src="/public/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../../../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/public/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../../../../vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="/public/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="../../../../vendor/raphael/raphael.min.js"></script>
-    <script src="../../../../vendor/morrisjs/morris.min.js"></script>
-    <script src="../../../../data/morris-data.js"></script>
+    <script src="/public/vendor/raphael/raphael.min.js"></script>
+    <script src="/public/vendor/morrisjs/morris.min.js"></script>
+    <script src="/public/data/morris-data.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../../../../dist/js/sb-admin-2.js"></script>
+    <script src="/public/dist/js/sb-admin-2.js"></script>
 
 </body>
 
