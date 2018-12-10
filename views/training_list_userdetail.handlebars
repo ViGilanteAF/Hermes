@@ -90,12 +90,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        <li><a href="/login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -132,7 +132,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -169,8 +169,8 @@
                                                     <th style="text-align :center;">&nbsp;받는사람&nbsp;</th>
                                                     <th style="text-align :center;">&nbsp;이메일 수신&nbsp;</th>
                                                     <th style="text-align :center;">&nbsp;이메일 삭제&nbsp;</th>
-                                                    <th style="text-align :center;">&nbsp;이메일 클릭&nbsp;</th>
                                                     <th style="text-align :center;">&nbsp;스팸 처리&nbsp;</th>
+                                                    <th style="text-align :center;">&nbsp;이메일 클릭&nbsp;</th>
                                                     <th style="text-align :center;">&nbsp;{{#each tmp2}}{{this.Train_Type}}{{/each}}&nbsp;</th>
                                                 </tr>
                                             </thead>
@@ -178,39 +178,47 @@
                                                 {{#each tmp}}
                                                 <tr class="gradeA">
                                                     <td align="center" name="Emp_Name">&nbsp;{{this.Emp_Name}}</td>
-                                                    <td align="center" name="Train_FinishPeo">
+                                                    <td align="center" name="Train_Receve">
                                                         {{#if this.Targ_Receve}}
-                                                        <p class="fa fa-check"></p>
+                                                        <div class="tooltip-demo"><p class="fa fa-check-circle-o" style="font-size:20px;color:green;" data-toggle="tooltip" data-placement="bottom" title="{{this.Receve_Time}}"></p></div>
                                                         {{else}}
-                                                        <p class="fa fa-times"></p>
+                                                        <p class="fa fa-minus" style="font-size:5px;"></p>
                                                         {{/if}}
                                                     </td>
-                                                    <td align="center" name="Train_DelEmPeo">
+                                                    <td align="center" name="Train_Delete">
                                                         {{#if this.Targ_Delete}}
-                                                        <p class="fa fa-check"></p>
+                                                        <div class="tooltip-demo"><p class="fa fa-check-circle-o" style="font-size:20px;color:green;" data-toggle="tooltip" data-placement="bottom" title="{{this.Delete_Time}}"></p></div>
                                                         {{else}}
-                                                        <p class="fa fa-times"></p>
+                                                        <p class="fa fa-minus" style="font-size:5px;"></p>
                                                         {{/if}}
                                                     </td>
-                                                    <td align="center" name="Train_ClickPeo">
-                                                        {{#if this.Targ_Click}}
-                                                        <p class="fa fa-check"></p>
-                                                        {{else}}
-                                                        <p class="fa fa-times"></p>
-                                                        {{/if}}
-                                                    </td>
-                                                        <td align="center" name="Train_ClickPeo">
+                                                    <td align="center" name="Train_Spam">
                                                         {{#if this.Targ_Spam}}
-                                                        <p class="fa fa-check"></p>
+                                                        <div class="tooltip-demo"><p class="fa fa-check-circle-o" style="font-size:20px;color:green;" data-toggle="tooltip" data-placement="bottom" title="{{this.Spam_Time}}"></p></div>
                                                         {{else}}
-                                                        <p class="fa fa-times"></p>
+                                                        <p class="fa fa-minus" style="font-size:5px;"></p>
                                                         {{/if}}
                                                     </td>
-                                                    <td align="center" name="Train_SpamPeo">
-                                                        {{#if this.Targ_UrClick}}
-                                                        <p class="fa fa-check"></p>
+                                                    <td align="center" name="Train_Click">
+                                                        {{#if this.Targ_Click}}
+                                                        <div class="tooltip-demo"><p class="fa fa-times-circle-o" style="font-size:20px;color:red;" data-toggle="tooltip" data-placement="bottom" title="{{this.Click_Time}}"></p></div>
                                                         {{else}}
-                                                        <p class="fa fa-times"></p>
+                                                        <p class="fa fa-minus" style="font-size:5px;"></p>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td align="center" name="Train_Attack">
+                                                        {{#if this.Targ_UrClick}}
+                                                        <div class="tooltip-demo"><p class="fa fa-times-circle-o" style="font-size:20px;color:red;" data-toggle="tooltip" data-placement="bottom" title="{{this.UrClick_Time}}"></p></div>
+                                                        {{else}}
+                                                            {{#if this.Targ_FileClick}}
+                                                            <div class="tooltip-demo"><p class="fa fa-times-circle-o" style="font-size:20px;color:red;" data-toggle="tooltip" data-placement="bottom" title="{{this.FileClick_Time}}"></p></div>
+                                                            {{else}}
+                                                                {{#if this.Targ_Info}}
+                                                                <div class="tooltip-demo"><p class="fa fa-times-circle-o" style="font-size:20px;color:red;" style="font-size:30px;color:red;" data-toggle="tooltip" data-placement="bottom" title="{{this.Info_Time}}"></p></div>
+                                                                {{else}}
+                                                                <p class="fa fa-minus" style="font-size:5px;"></p>
+                                                                {{/if}}
+                                                            {{/if}}
                                                         {{/if}}
                                                     </td>
                                                 </tr>
@@ -253,7 +261,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="/public/dist/js/sb-admin-2.js"></script>
-
+    <script>
+    // tooltip demo
+    $('.tooltip-demo').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+    // popover demo
+    $("[data-toggle=popover]")
+        .popover()
+    </script>
 </body>
 
 </html>

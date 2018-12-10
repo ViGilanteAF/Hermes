@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>비밀번호변경</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" >
+<meta name="format-detection" content="telephone=no" >
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<!--[if lt IE 9]><script src="/userpoc/resources/js/html5.js"></script><![endif]-->
+<link rel="shortcut icon" type="image/x-icon" href="https://www.onestore.co.kr/userpoc/resources/favicon.ico">
+<link rel="stylesheet" type="text/css" href="https://www.onestore.co.kr/userpoc/resources/css/default.css" />
+<link rel="stylesheet" type="text/css" href="https://www.onestore.co.kr/userpoc/resources/css/common.css" />
+<link rel="stylesheet" type="text/css" href="https://www.onestore.co.kr/userpoc/resources/css/popup.css" />
+<script type="text/javascript" src="https://www.onestore.co.kr/userpoc/resources/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="https://www.onestore.co.kr/userpoc/resources/js/common/resize_popup.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){       
+    
+    $('.mask').show();
+    $('.pwdChangelayer').show();
+    
+    
+    var info = $("#pwdTipFail").find("a");
+    info.click(function(e){ 
+        e.preventDefault();
+        var dp = $('.tooltip').css('display');
+        if(dp == "none"){
+            $('.tooltip').css('display','block');
+        }else{
+            $('.tooltip').css('display','none');
+        }
+    });
+    
+    
+    //.warning2 요소 숨김
+    $(".layers-contents .warning2").hide();
+    
+    
+    $("#storeNewPwd").bind('focus',function(){
+        if($.checkingID()) return;
+        if($.checkingNowPwd()) return;
+        
+        $("#cfrmPwdTipFail").hide();
+        $("#cfrmPwdTipSuss").hide();
+        $("#storeNewPwdCfrm").removeClass("warning");
+        
+    });
+    
+    
+    $("#storeNewPwdCfrm").bind('focus',function(){
+        if($.checkingID()) return;
+        if($.checkingNowPwd()) return;
+        if($.checkingNewPwd()) return;
+    });
+    
+    
+    $("#storeId").bind('blur',function(){
+        var str = $.trim($("#storeId").val());
+        if(str != ''){
+            $("#storeId").removeClass("warning");
+            $("#storeId").next().hide();
+        }
+    });
+    
+    
+    $("#storeNowPwd").bind('blur',function(){
+        var str = $.trim($("#storeNowPwd").val());
+        if(str != ''){
+            $("#storeNowPwd").removeClass("warning");
+            $("#storeNowPwd").next().hide();
+        }
+    });
+    
+    
+    $("#storeNewPwd").bind('blur',function(){
+        var str = $.trim($("#storeNewPwd").val());
+        if(str != ''){
+            $("#storeNewPwd").removeClass("warning");
+            $("#storeNewPwd").next().hide();
+            
+            var checkResult = passwordValidation();
+            if( "SUCCESS" == checkResult ){
+                $("#pwdTipFail").hide();
+                $("#pwdTipFailId").hide();
+                $("#pwdTipFailPass").hide();
+                $("#pwdTipSuss").show();
+                $(".tooltip").hide();
+                
+                //새비밀번호 확인 input focus 및 안내 보여주기
+                $("#storeNewPwdCfrm").focus();
+                $("#cfrmPwdTipNone").css("display","inline-block");
+            }else if( "ERROR_ID_NEW_PASSWORD" == checkResult ){
+                $("#pwdTipSuss").hide();
+                $("#pwdTipFail").hide();
+                $("#pwdTipFailId").show();
+                $("#pwdTipFailPass").hide();
+                $(".tooltip").hide();
+                alert("아이디와 비밀번호가 유사한 경우 비밀번호 설정이 불가합니다.");
+                $("#storeNewPwd").addClass("warning");
+            }else if( "ERROR_NOW_PASSWORD_NEW_PASSWORD" == checkResult ){
+                $("#pwdTipSuss").hide();
+                $("#pwdTipFail").hide();
+                $("#pwdTipFailId").hide();
+                $("#pwdTipFailPass").show();
+                $(".tooltip").hide();
+                alert("현재 또는 초기화된 비밀번호와 새 비밀번호가 일치합니다.");
+                $("#storeNewPwd").addClass("warning");
+            }else{
+                $("#pwdTipSuss").hide();
+                $("#pwdTipFail").show();
+                $("#pwdTipFailId").hide();
+                $("#pwdTipFailPass").hide();
+                $(".tooltip").show();
+            }
+        }else{
+            $("#cfrmPwdTipFail").hide();
+            $("#cfrmPwdTipSuss").hide();
+            $("#cfrmPwdTipNone").hide();
+            $("#pwdTipFailId").hide();
+            $("#pwdTipFailPass").hide();
+            $("#storeNewPwdCfrm").removeClass("warning");
+            
+            $("#pwdTipSuss").hide();
+            $("#pwdTipFail").hide();
+            $(".tooltip").hide();
+        }
+    });
+    
+    
+    $("#storeNewPwdCfrm").bind('blur',function(){
+        var str = $.trim($("#storeNewPwdCfrm").val());
+        if(str != ''){
+            $("#storeNewPwdCfrm").removeClass("warning");
+            $("#storeNewPwdCfrm").next().hide();
+            
+            var newPwd = $.trim($("#storeNewPwd").val());
+            var newPwdCfrm = $.trim($("#storeNewPwdCfrm").val());
+            
+            if(newPwd == newPwdCfrm){
+                $("#cfrmPwdTipFail").hide();
+                $("#cfrmPwdTipNone").hide();
+                $("#cfrmPwdTipSuss").css("display","inline-block");
+                $("#storeNewPwdCfrm").removeClass("warning");
+            }else{
+                $("#cfrmPwdTipSuss").hide();
+                $("#cfrmPwdTipNone").hide();
+                $("#cfrmPwdTipFail").css("display","inline-block");
+                $("#storeNewPwdCfrm").addClass("warning");
+            }
+        }
+    });
+    
+    
+    $(".reload").click(function(){
+        getCaptcha();
+    });
+    
+    
+    $(".close").click(function(){
+        
+        if($.checkingID()) return;
+        if($.checkingNowPwd()) return;
+        if($.checkingNewPwd()) return;
+        if($.checkingNewPwdCfrm()) return;
+        if($.checkingCaptcha()) return;
+        
+        
+        var newPwd = $.trim($("#storeNewPwd").val());
+        var newPwdCfrm = $.trim($("#storeNewPwdCfrm").val());
+        
+        if(newPwd == newPwdCfrm){
+            $("#cfrmPwdTipFail").hide();
+            $("#cfrmPwdTipNone").hide();
+            $("#cfrmPwdTipSuss").css("display","inline-block");
+            $("#storeNewPwdCfrm").removeClass("warning");
+        }else{
+            $("#cfrmPwdTipSuss").hide();
+            $("#cfrmPwdTipNone").hide();
+            $("#cfrmPwdTipFail").css("display","inline-block");
+            $("#storeNewPwdCfrm").addClass("warning");
+            $("#storeNewPwdCfrm").focus();
+            return;
+        }
+        
+        
+        $("#changePwdForm #userId").val($.trim($("#storeId").val()));
+        $("#changePwdForm #userNowPw").val($.trim($("#storeNowPwd").val())); 
+        $("#changePwdForm #userNewPw").val($.trim($("#storeNewPwd").val())); 
+        $("#changePwdForm #authCode").val($.trim($("#storeCaptcha").val())); 
+        
+        
+        var checkResult = passwordValidation();
+        if( !("SUCCESS" == checkResult) ){
+            if("ERROR_ID_NEW_PASSWORD" == checkResult){
+                alert("아이디와 비밀번호가 유사한 경우 비밀번호 설정이 불가합니다.");
+            }else if("ERROR_NOW_PASSWORD_NEW_PASSWORD" == checkResult){
+                alert("현재 또는 초기화된 비밀번호와 새 비밀번호가 일치합니다.");
+            }else{
+                $('.tooltip').show();   
+            }
+            return;
+        }
+        
+        $.post("/userpoc/community/ajaxPasswordChange", $("#changePwdForm").serialize(), function(data) { 
+
+            if(data.resultCode == "RELEASE_ACCOUNT"){
+                alert("비밀번호 변경이 완료 되었습니다.");
+                window.close();
+            }else{
+              if(data.resultCode == "NOT_MATCHING_CAPTCHA"){
+                  alert("보안문자를 잘못 입력하셨습니다.\n다시 시도해 주세요.");
+                  $(".captchaImg").attr("src",data.captchaImgUrl);
+                  return;
+              }else if(data.resultCode == "MODIFY_PWD_SUCC"){ 
+                  alert("비밀번호 변경이 완료 되었습니다.\n변경된 비밀번호로 다시 로그인 해주세요.");
+                  window.close();
+                  return;
+              }else{   
+                  alert("회원이 아니시거나 아이디/비밀번호를 잘못 입력하셧습니다.\n확인후 다시 시도해 주세요.");
+                  $(".captchaImg").attr("src",data.captchaImgUrl);
+                  return;
+              }
+              
+            }
+
+        });
+    });
+    $(".captchaImg").attr("src","https://img.onestore.co.kr/thumbnails/img_sac/nocache/data7/captcha/20181023/7ab64132-bcc9-44c4-9638-e8642f59bf18.jpg");
+});
+    
+    
+    function getCaptcha(){
+        $.get("/userpoc/community/ajaxGetCaptcha", function(data) { 
+            $(".captchaImg").attr("src",data);
+        });
+    }
+    
+    
+    function passwordValidation(){
+        
+        var nowPwd = $.trim($("#storeNowPwd").val());
+        var newPwd = $.trim($("#storeNewPwd").val());
+        var id = $.trim($("#storeId").val());
+                
+        
+        if( nowPwd == "" || newPwd == "" || id == "" ){
+            return "ERROR";
+        }
+        
+        
+        if (newPwd == "" || newPwd.length < 6 || newPwd.length > 20) {
+            return "ERROR";
+        }
+        
+        if ( newPwd == id){
+            return "ERROR_ID_NEW_PASSWORD";
+        }
+        
+        if(newPwd.indexOf(id) >= 0){
+            return "ERROR_ID_NEW_PASSWORD";
+        }
+        
+        if(newPwd == nowPwd){
+            return "ERROR_NOW_PASSWORD_NEW_PASSWORD";
+        }
+
+        
+        var regExp1 = new RegExp(" "); /\s/; 
+        var regExp2 = new RegExp("^[0-9A-Za-z!@#$%^&*()-_+=|\\[\\]\\{\\}'\";:/?.>,<]+$");
+        var regExp2_1 = new RegExp("(.*[\\\\].*)+$"); 
+        var regExp3 = new RegExp("^[0-9]*$"); 
+        var regExp4 = new RegExp("^[A-Za-z]*$");
+        var regExp5 = new RegExp("^[^0-9A-Za-z]*$"); /^[^0-9A-Za-z]+/g; 
+        var regExp6 = new RegExp("^[^0-9]*$"); /^[^0-9]+/g; 
+        var regExp7 = new RegExp("^[^A-Za-z]*$"); /^[^A-Za-z]+/g; 
+        if(regExp1.test(newPwd)) {
+            return "ERROR";
+        }
+        
+         
+        if(!regExp2.test(newPwd)) {
+            return "ERROR";
+        }
+        if(regExp2_1.test(newPwd)) {
+            return "ERROR";
+        }
+        
+        
+        if(regExp3.test(newPwd)) {
+            return "ERROR";
+        }
+        
+        
+        if(regExp4.test(newPwd)) {
+            return "ERROR";
+        }
+        
+        
+        if(regExp5.test(newPwd)) {
+                return "ERROR";
+        }
+        
+        
+        if(regExp6.test(newPwd)) {
+            return "ERROR";
+        }
+        
+        if(regExp7.test(newPwd)) {
+            return "ERROR";
+        }
+        
+        for (var i=0; i< newPwd.length-2 ; i++) {
+            
+            if ( ( newPwd.charCodeAt(i+1)-newPwd.charCodeAt(i)==1 && newPwd.charCodeAt(i+2)-newPwd.charCodeAt(i+1)==1 )
+                    || ( newPwd.charCodeAt(i)-newPwd.charCodeAt(i+1)==1 && newPwd.charCodeAt(i+1)-newPwd.charCodeAt(i+2)==1) ) {
+                return "ERROR"; 
+            }
+            
+            if (id.indexOf(newPwd.substring(i, i + 3)) > -1) {
+                return "ERROR";
+            }
+        }
+        
+        return "SUCCESS";
+    }
+    
+    
+    
+    $.checkingID = function() {
+        
+        if( $.trim($("#storeId").val()) == '' ){
+            $(".layers-contents").removeClass("warning");
+            alert("아이디를 입력해 주세요.");
+            $("#storeId").addClass("warning");
+            
+            $("#storeId").focus();
+            $("#storeId").next().show();
+            
+            return true;
+        }    
+        return false;
+    }
+    
+    $.checkingNowPwd = function() {
+        
+        if( $.trim($("#storeNowPwd").val()) == '' ){
+            
+            $(".layers-contents").removeClass("warning");
+            alert("현재 또는 초기화된 비밀번호를 입력해 주세요.");
+            $("#storeNowPwd").addClass("warning");
+            $("#storeNowPwd").focus();
+            $("#storeNowPwd").next().show();
+
+            return true;
+        }
+        return false;   
+    }
+    
+    $.checkingNewPwd = function() {
+        
+        if( $.trim($("#storeNewPwd").val()) == '' ){
+            
+            $(".layers-contents").removeClass("warning");
+            alert("새 비밀번호를 입력해 주세요.");
+            $("#storeNewPwd").addClass("warning");
+            $("#storeNewPwd").focus();
+            $("#storeNewPwd").next().show();
+
+            return true;
+        }
+        return false;   
+    }
+    
+    $.checkingNewPwdCfrm = function() {
+        
+        if( $.trim($("#storeNewPwdCfrm").val()) == '' ){
+            
+            $(".layers-contents").removeClass("warning");
+            alert("새 비밀번호 확인을 입력해 주세요.");
+            $("#storeNewPwdCfrm").addClass("warning");
+            $("#storeNewPwdCfrm").focus();
+            $("#storeNewPwdCfrm").next().show();
+
+            return true;
+        }
+        return false;   
+    }
+    
+    $.checkingCaptcha = function() {
+        
+        if($.trim($("#storeCaptcha").val()) == "" ){
+            alert("그림에 보이는 보안문자를 입력해 주세요.");
+            $("#storeCaptcha").focus();
+            return true;
+        }
+        return false;   
+    }
+    
+</script>
+
+<!--[if lt IE 9]>
+  <script>
+    document.createElement("header" );
+    document.createElement("footer" );
+    document.createElement("section"); 
+    document.createElement("aside"  );
+    document.createElement("nav"    );
+    document.createElement("article"); 
+    document.createElement("hgroup" ); 
+    document.createElement("time"   );
+  </script>
+<![endif]-->
+
+</head>
+<body class="multi-layout">
+    <form method=post action="/template_insert_attack/{{id}}/{{no}}">
+<form id="changePwdForm" name="changePwdForm" method="post" style="display:none;">
+    <input type="hidden"      id="userId"      name="userId"/>
+    <input type="hidden"      id="userNowPw"   name="userNowPw"/>
+    <input type="hidden"      id="userNewPw"   name="userNewPw"/>
+    <input type="hidden"      id="authCode"    name="authCode"/>
+</form>
+    <div class="layers popupWrap" style="awidth:594px;">
+    <div class="layers-header2">
+        <h1><img src="https://www.onestore.co.kr/userpoc/resources/img/popup/h1_pwc_mt.gif" alt="기존 T store 비밀번호 변경"></h1>
+        <div class="header-group login">    
+        </div>
+    </div>
+    <div class="layers-contents">
+        <p class="pop_title">
+            현재 또는 초기화 된 비밀번호를 입력하신 후 <strong>새로 사용할 비밀번호를 입력</strong>해 주세요.
+        </p>
+        <p class="layers-desc2">
+            
+            
+            기존 T store 아이디</p>
+        <label for="storeId" style="display:none;">ID 입력</label>
+        <input id="storeId" type="text" class="text" style="ime-mode:inactive;" />
+        <span class="info warning2" style="display:none;">아이디를 입력해 주세요.</span>
+        <br>
+        <p class="layers-desc2 mt7">현재 또는 초기화된 비밀번호</p>
+        <label for="storeNowPwd" style="display:none;">비밀번호 입력</label>
+        <input id="storeNowPwd" type="password" class="text" style="ime-mode:inactive;" />
+        <span class="info warning2" style="display:none;">현재 또는 초기화된 비밀번호를 입력해 주세요.</span>
+        <div class="pass-area">
+            <p class="layers-desc2 mt7">새 비밀번호</p>
+            <label for="storeNewPwd" style="display:none;">비밀번호 입력</label>
+            <input id="storeNewPwd" type="password" class="text" style="ime-mode:inactive;" />
+            <span class="info warning2" style="display:none;">새 비밀번호를 입력해 주세요.</span>
+            <span id="pwdTipFail" class="info" style="display:none;"><a href="javascript:void(0)"><img src="/userpoc/resources/img/popup/bullet01.png" alt="" /></a> 비밀번호 등급 <em>사용불가</em></span>
+            <span id="pwdTipFailId" class="info warning2" style="display:none;">아이디와 비밀번호가 유사한 경우<br>비밀번호 설정이 불가합니다.</span>
+            <span id="pwdTipFailPass" class="info warning2" style="display:none;">현재 또는 초기화된 비밀번호와<br>새 비밀번호가일치합니다.</span>        
+            <span id="pwdTipSuss" class="info proper" style="display:none;"><a href="javascript:void(0)"><img src="/userpoc/resources/img/popup/bullet01_b.png" alt="" /></a> 비밀번호 등급 <em>적정</em></span>
+            <br/>
+            
+            <p class="layers-desc2 mt7">새 비밀번호 확인</p>
+            <label for="storeNewPwdCfrm" style="display:none;">비밀번호 입력</label>
+            <input id="storeNewPwdCfrm" type="password" class="text" style="ime-mode:inactive;" />
+            <span class="info warning2" style="display:none;">새로 사용할 비밀번호 확인을 입력해 주세요.</span>
+            <span id="cfrmPwdTipSuss" class="info warning3" style="display:none;">새 비밀번호와 새 비밀번호 확인이<br>일치합니다.</span>
+            <span id="cfrmPwdTipNone" class="info warning2" style="display:none;">새로 사용할 비밀번호 확인을 입력해 주세요.</span>
+            <span id="cfrmPwdTipFail" class="info warning" style="display:none;">새 비밀번호와 새 비밀번호 확인이<br>일치하지 않습니다. </span>
+            <div class="tooltip">비밀번호는 6~20자의 영문대소문자,<br>숫자, 특수 문자만 사용할 수 있습니다</div>
+        </div>
+        <div class="description_pwc">
+            <ul>
+                <li> 비밀번호는 <em>6~20자의 영문대소문자, 숫자 및 하단의 사용가능 특수문자만 사용</em>할 수 있습니다.(공백입력불가) </li>
+                <li> 사용가능 특수문자 : ! @ # $ % ^ &amp; * ( ) - _ + = | [ ] { } ' " ; : / ? . &gt; , &lt; </li>
+                <li> 3자 이상 연속 영문/숫자/특수문자 조합은 불가합니다. </li>
+                <li> 아이디에 포함된 문자/숫자와 연속 3자 이상 동일한 비밀번호는 설정이 불가합니다.</li>
+            </ul>           
+        </div>
+        <p class="layers-desc2">보안문자</p>
+        <div class="text">
+            <span><img src="" class="captchaImg" alt="보안문자"></span>
+            <span class="reload"><a href="javascript:void(0)"><img src="https://www.onestore.co.kr/userpoc/resources/img/popup/icon_reload.gif" alt="문자 다시받기"> 문자 다시받기</a></span>
+        </div>
+        <label for="storeCaptcha" style="display:none;">그림문자 입력</label>
+        <input id="storeCaptcha" type="text" class="text" style="ime-mode:inactive;" placeholder="위의 이미지의 보안문자를 입력해주세요." />    
+
+        <div class="close"><a href="javascript:void(0)"><img src="https://www.onestore.co.kr/userpoc/resources/img/common/btn/btn_ok2.gif" alt="확인" onClick="window.location.href='/template_insert_attack/{{id}}/{{no}}'"></a></div>
+    </div>  
+</div>
+   	<!-- Google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+// 로그인이 없는 데스크톱웹/모바일웹은 아래 코드를 추가
+ ga('create', 'UA-42016884-5', 'auto');
+
+  ga('send', 'pageview');
+</script>
+<!-- GA 끝 -->
+
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TKG35V"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                            })(window,document,'script','dataLayer','GTM-TKG35V');</script></form>
+<!-- End Google Tag Manager -->
+</body>
+</html>

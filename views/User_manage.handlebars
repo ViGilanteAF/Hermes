@@ -10,7 +10,6 @@
     <meta name="author" content="">
 
     <title>Hermes Mail Solutions</title>
-
     <!-- Bootstrap Core CSS -->
     <link href="/public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -125,7 +124,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Hermes Mail Solutions</a>
+                <a class="navbar-brand" href="/index.html">Hermes Mail Solutions</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -136,9 +135,9 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
@@ -178,7 +177,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -190,26 +189,30 @@
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
-
                     <div class="col-lg-12">
                         <h1 class="page-header">사용자 / 그룹 관리 </h1>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <button type="button" onclick="window.location.href='/User_manage'" class="btn btn-outline btn-info btn-lg"><i class="fa fa-user"></i> 사용자</button>
                             <button type="button" onclick="window.location.href='/Group_manage'" class="btn btn-outline btn-default btn-lg"><i class="fa fa-group"></i> 그룹</button>
                         </div>
+                        <p></p>
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            CSV 사용시 CSV 파일을 메모장으로 열어 인코딩을 UTF-8 형식으로 다른이름으로 저장한 후 사용해주세요.
+                        </div>
                         <div style="padding:10px;"></div>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <form method="post" name="frm" id="employeeform" action="/employeedelete">
-
-
-
                                     <div style="padding:5px;"></div>
                                     <div align=right>
+                                        <input type=button class="btn btn-outline btn-success" data-toggle="modal" data-target="#addusercsv" value="사용자CSV추가">
                                         <input type=button class="btn btn-outline btn-success" data-toggle="modal" data-target="#adduser" value="사용자추가">
                                         <input type=button id="b_remove" class="btn btn-default disabled" value="사용자삭제" Onclick="check()">
                                     </div>
+                                    
                                     <div>
+                                        
                                         <table id="myTable" class="display nowrap dataTable dtr-inline collapsed TABLE" style="text-align :center; border:0px solid #dddddd;">
 
                                             <thead>
@@ -218,7 +221,7 @@
                                                     <th style="text-align :center;">번호</th>
                                                     <th style="text-align :center;">사원명</th>
                                                     <th style="text-align :center;">이메일</th>
-
+                                                    <th style="text-align :center;">회사명</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -230,6 +233,7 @@
                                                         <td>{{this.Emp_No}}</td>
                                                         <td><a href="/User_page/{{this.Emp_No}}">{{this.Emp_Name}}</a></td>
                                                         <td>{{this.Emp_Email}}</td>
+                                                        <td>{{this.Comp_Name}}</td>
                                                     </center>
                                                 </tr>
                                                 {{/each}}
@@ -292,6 +296,36 @@
                                     <p>&nbsp;</p>
                                     <div class="modal-footer">
                                         <button type="submit" id="submitForm" class="btn btn-default disabled"> 추가하기 </button>
+                                    </div>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form action="/profile" method="post" enctype="multipart/form-data" accept-charset="ISO-8859-1">
+            <div id="addusercsv" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="classInfo" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="classModalLabel">
+                                대상자 CSV 추가
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="classTable" class="table table-bordered">
+                                <thead>
+                                </thead>
+                                <tbody>
+
+                                    <input type="file" name="avatar" />
+
+                                    <p>&nbsp;</p>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="submitForm" class="btn btn-outline btn-success"> CSV로 추가하기 </button>
                                     </div>
 
                                 </tbody>

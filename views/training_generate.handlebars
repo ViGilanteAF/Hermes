@@ -58,12 +58,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        <li><a href="/login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -100,7 +100,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -110,6 +110,7 @@
         </nav>
 
         <div id="page-wrapper">
+            <div class="container-fluid">
             <form role="form" method="post" action="/training_generate_template">
             <div class="row">
                 
@@ -121,7 +122,14 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
             <!-- traing create start -->
+            <div class="alert alert-info alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                훈련명과 훈련 유형을 설정해주세요.
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     
@@ -135,19 +143,19 @@
                             <label>훈련 유형</label>
                             <div class="radio">
                                 <label>
-                                    <input name="Training_type" id="optionsRadios1" type="radio" value="1">피싱 훈련
+                                    <input name="Training_type" id="optionsRadios1" type="radio" value="1">피싱 훈련 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-muted"><em>*피싱 메일을 이용한 URL클릭 훈련</em></p>
                                 </label>
                             </div>
                             <p></p>
                             <div class="radio">
                                 <label>
-                                    <input name="Training_type" id="optionsRadios2" type="radio" value="2">첨부파일 훈련
+                                    <input name="Training_type" id="optionsRadios2" type="radio" value="2">첨부파일 훈련 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-muted"><em>*첨부파일 열람을 확인하는 훈련</em></p>
                                 </label>
                             </div>
                             <p></p>
                             <div class="radio">
                                 <label>
-                                    <input name="Training_type" id="optionsRadios3" type="radio" value="3">자격증명 훈련
+                                    <input name="Training_type" id="optionsRadios3" type="radio" value="3">정보 입력 훈련 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class="text-muted"><em>*피싱 사이트에서 정보 입력을 확인하는 훈련</em></p>
                                 </label>
                             </div>
                         </div>
@@ -158,7 +166,7 @@
             </form>
         </div>
         <!-- /#page-wrapper -->
-
+        </div>
     </div>
     <!-- /#wrapper -->
 

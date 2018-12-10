@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -22,6 +22,10 @@
 
     <!-- Custom Fonts -->
     <link href="/public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,174 +38,28 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.4.1/snap.svg-min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
+        <!-- Load c3.css -->
+    <link href="/public/c3/c3.css" rel="stylesheet">
+
+    <!-- Load d3.js and c3.js -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="/public/c3/c3.min.js"></script>
     <!---------- 원그래프 ---------->
-    <style>
-        .flex-wrapper {
-            display: flex;
-            flex-flow: row nowrap;
-        }
-
-        .single-chart {
-            width: 44%;
-            justify-content: space-around;
-        }
-
-        .circular-chart {
-            display: block;
-            margin: 10px auto;
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .circle-bg {
-            fill: none;
-            stroke: #eee;
-            stroke-width: 3.8;
-        }
-
-        .circle {
-            fill: none;
-            stroke-width: 4;
-            stroke-linecap: round;
-            animation: progress 1s ease-out forwards;
-        }
-
-        @keyframes progress {
-            0% {
-                stroke-dasharray: 0 100;
-            }
-        }
-
-
-        .circular-chart.green .circle {
-            stroke: #a00b0b;
-            align-content: center;
-            align-items: center;
-        }
-
-
-
-        .percentage_full {
-            fill: #666;
-            font-family: sans-serif;
-
-            text-anchor: middle;
-        }
-
-    </style>
-    <!---------- /.원그래프 ---------->
-
-
-    <!---------- 반 원그래프 ---------->
-    <style>
-        body {
-            background: #fff;
-        }
-
-        .metric {
-            padding: 10%;
-        }
-
-        .metric svg {
-            max-width: 70%;
-        }
-
-        .metric path {
-            stroke-width: 75;
-            stroke: #ecf0f1;
-            fill: none;
-        }
-
-        .metric text {
-            font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-
-        .metric.participation path.data-arc {
-            stroke: #3498db;
-        }
-
-        .metric.participation text {
-            fill: #3498db;
-        }
-
-        .metric.completion path.data-arc {
-            stroke: #27ae60;
-        }
-
-        .metric.completion text {
-            fill: #27ae60;
-        }
-
-        .metric.blocked path.data-arc {
-            stroke: #e74c3c;
-        }
-
-        .metric.blocked text {
-            fill: #e74c3c;
-        }
-
-    </style>
-
-    <script>
-        $(function() {
-
-            var polar_to_cartesian, svg_circle_arc_path, animate_arc;
-
-            polar_to_cartesian = function(cx, cy, radius, angle) {
-                var radians;
-                radians = (angle - 90) * Math.PI / 180.0;
-                return [Math.round((cx + (radius * Math.cos(radians))) * 100) / 100, Math.round((cy + (radius * Math.sin(radians))) * 100) / 100];
-            };
-
-            svg_circle_arc_path = function(x, y, radius, start_angle, end_angle) {
-                var end_xy, start_xy;
-                start_xy = polar_to_cartesian(x, y, radius, end_angle);
-                end_xy = polar_to_cartesian(x, y, radius, start_angle);
-                return "M " + start_xy[0] + " " + start_xy[1] + " A " + radius + " " + radius + " 0 0 0 " + end_xy[0] + " " + end_xy[1];
-            };
-
-            animate_arc = function(ratio, svg, perc) {
-                var arc, center, radius, startx, starty;
-                arc = svg.path('');
-                center = 500;
-                radius = 450;
-                startx = 0;
-                starty = 450;
-                return Snap.animate(0, ratio, (function(val) {
-                    var path;
-                    arc.remove();
-                    path = svg_circle_arc_path(500, 500, 450, -90, val * 180.0 - 90);
-                    arc = svg.path(path);
-                    arc.attr({
-                        class: 'data-arc'
-                    });
-                    perc.text(Math.round(val * 100) + '%');
-                }), Math.round(1000 * ratio), mina.easeinout);
-            };
-
-            $('.metric').each(function() {
-                var ratio, svg, perc;
-                ratio = $(this).data('ratio');
-                svg = Snap($(this).find('svg')[0]);
-                perc = $(this).find('text.percentage');
-                animate_arc(ratio, svg, perc);
-            });
-        });
-
-    </script>
-    <!---------- /. 반 원그래프 ---------->
 
 </head>
 
 <script>
-
     function go_before() {
         history.back();
     }
-
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 
+</script>
 
 <body>
 
@@ -227,12 +85,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        <li><a href="/login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -241,7 +99,7 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-                        <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
@@ -269,7 +127,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -294,211 +152,294 @@
                         <div style="padding:10px;"></div>
                         <!------------------------------------------------------------------------------------------>
 
-                        <table width="100%" border=0>
-                            <tr>
-                                <td width="48%">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="panel panel-default" style="height: 400px;">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-bars fa-fw"></i> 훈련 정보
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <!------  상세정보 테이블 -->
+                                            {{#each tmp}}
+                                            <table border=0 style="min-width: 310px; height: 300px; max-width: 400px; margin: 0 ">
+                                                <tr>
+                                                    <td>훈련제목</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    <td align=left>{{this.Train_Name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>훈련타입</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    <td align=left>
+                                                        {{this.Train_Type}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>훈련 총 인원</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    <td align=left>{{this.Train_TotalPeo}} 명</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>훈련 시작일 </td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    <td align=left>{{this.Start_Time}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>훈련 종료일 </td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    <td align=left>{{this.Finish_Time}}</td>
+                                                </tr>
+                                            {{/each}}
+                                            {{#each tmp3}}
+                                                <tr> 
+                                                    <td>회사명</td>
+                                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                    <td align=left>{{this.Comp_Name}}</td>
+                                                </tr>
+                                            </table>
+                                            {{/each}}
+                                        </div>
 
-                                    <!-----------------------------------상세정보----------------------------------------------------->
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel panel-default" style="height: 400px;">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-hand-o-up fa-fw"></i> {{#each tmp}}{{this.Train_Type2}}{{/each}}
+                                        </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    훈련 정보
-                                                </div>
+                                        <div class="panel-body">
+                                            <!---------- 원그래프 ---------->
+                                            <table height: 300px;>
+                                            <div id="chart">
+                                            <script>{{#each tmp}}
+                                            var chart = c3.generate({
+                                                data: {
+                                                    // iris data from R
+                                                    columns: [
+                                                        ['{{this.Train_Type2}}', {{Train_Totalattackrate}}],
+                                                        ['{{this.Train_Type3}}', 100-{{Train_Totalattackrate}}],
+                                                    ],
+                                                    type : 'pie',
+                                                    colors: {
+                                                    '{{this.Train_Type2}}': '#dc3912',
+                                                    '{{this.Train_Type3}}': '#4f81c0'
+                                                    }
+                                                },
+                                                donut: {
+                                                    title: '{{Train_Totalattackno}}명'
+                                                },
+                                                bindto: '#chart'
+                                            });
 
-                                                <!-- /.panel-heading -->
-                                                <div class="panel-body">
-                                                    <!------  상세정보 테이블 -->
-                                                    {{#each tmp}}
-                                                    <table border=0 style="min-width: 310px; height: 300px; max-width: 400px; margin: 0 ">
-                                                        <tr>
-                                                            <td>훈련제목</td>
-                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                            <td align=left>{{this.Train_Name}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>훈련타입</td>
-                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                            <td align=left>
-                                                                {{this.Train_Type}}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>훈련 총 인원</td>
-                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                            <td align=left>{{this.Train_TotalPeo}} 명</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>훈련 시작일 </td>
-                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                            <td align=left>{{this.Start_Time}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>훈련 종료일 </td>
-                                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                                            <td align=left>{{this.Finish_Time}}</td>
-                                                        </tr>
-                                                    </table>
-                                                    {{/each}}
-                                                </div>
+                                            </script>{{/each}}
+                                            </div>
+                                            </table>
+                                            <!---------- /.원그래프 ---------->
 
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel panel-default" style="height: 400px;">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-smile-o fa-fw"></i> 보안 점수
+                                        </div>
+
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div id="chart5">
+                                            <script>
+                                               var chart5 = c3.generate({
+                                                    data: {
+                                                        columns: [
+                                                            ['보안 점수',{{#each tmp2}}{{this.Point}}{{/each}}]
+                                                        ],
+                                                        type: 'gauge',
+                                                    },
+                                                    color: {
+                                                        pattern: ['#FF3333', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+                                                        threshold: {
+                                                            values: [20, 40, 60, 80]
+                                                        }
+                                                    },
+                                                    size: {
+                                                        height: 250
+                                                    },
+                                                    bindto: '#chart5',
+                                                });
+                                            </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8" >
+                                    <div class="panel panel-default" style="height: 400px;">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-signal fa-fw"></i> 훈련 상세 정보 
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="chart6">
+                                                <script>{{#each tmp}}
+                                                    var chart6 = c3.generate({
+                                                        data: {
+                                                            columns: [
+                                                                ['훈련 : {{this.Train_Name}}', {{this.Train_TotalPeo}}, {{this.Train_DelEmPeo}}, {{this.Train_SpamPeo}}, {{this.Train_ClickPeo}},  {{this.Train_Totalattackno}}]
+                                                            ],
+                                                            type: 'bar',
+                                                            labels: true,
+                                                            colors: {
+                                                            '훈련 : {{this.Train_Name}}': '#7B9BA6'
+                                                            }
+                                                        },
+                                                        axis: {
+                                                            x: {
+                                                                type: 'category',
+                                                                categories: ['총 인원 수 ','이메일 삭제 ', '스팸 처리 ', '이메일 클릭 ','{{this.Train_Type2}}']
+                                                            },
+                                                            rotated: true
+                                                        },
+                                                        bindto: '#chart6'
+                                                    });{{/each}}
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel panel-default" style="height: 400px;">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-bell fa-fw"></i> 최근 이벤트 
+                                        </div>
+
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <!------  상세정보 테이블 -->
+                                            <div class="list-group">
+                                            {{#each tmp1}}
+                                                <a href="#" class="list-group-item">
+                            <i class="fa fa-user fa-fw"></i> {{this.Name}} - {{this.TAction}}
+                            <span class="pull-right text-muted small"><em>{{this.Action}}</em>
+                            </span></a>                
+                                            {{/each}}
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!---------------------------/. 상세정보--------------------------------------------------------->
+                                </div>
+                            </div>
+                                <!-----------------------------------상세정보----------------------------------------------------->
 
-                                </td>
-                                <td width="1%">&nbsp;</td>
-                                <td width="48%">
 
-                                    <!-----------------------------------감염률(전체)------------------------------------------------->
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    {{#each tmp}}{{this.Train_Type2}}{{/each}} 
-                                                </div>
+                        <!-----------------------------------그래프 3개 묶음------------------------------------------------->
+                        {{#each tmp}}
+                            <div class="row">
+                                <div class="col-lg-4" >
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-trash-o fa-fw"></i> 메일 삭제 
+                                        </div>
 
-                                                <div class="panel-body">
-                                                    <!---------- 원그래프 ---------->
-                                                        <table border=0 style="height: 300px; width: 600px; margin: 0 ">
-                                                            <tr align=center>
-                                                                <td >
-                                                                    <div class="single-chart" style="align-content: center;">
-                                                                        {{#each tmp}}
-                                                                        <svg viewbox="0 0 36 36" class="circular-chart green" style="align-content: center;">
-                                                                          <path class="circle-bg"
-                                                                            d="M18 2.0845
-                                                                              a 15.9155 15.9155 0 0 1 0 31.831
-                                                                              a 15.9155 15.9155 0 0 1 0 -31.831"
-                                                                          />
-                                                                          <path class="circle"
-                                                                            stroke-dasharray="{{Train_Totalattackrate}}, 100"
-                                                                            d="M18 2.0845
-                                                                              a 15.9155 15.9155 0 0 1 0 31.831
-                                                                              a 15.9155 15.9155 0 0 1 0 -31.831"
-                                                                          />
-                                                                          <text x="18" y="18.5" class="percentage_full" style=" font-size: 0.5em;">{{Train_Totalattackrate}}%</text>
-                                                                        <text x="18" y="25.0"  font-size="3.5" class="percentage_full">{{this.Train_Totalattackno}}명</text>    
-                                                                        </svg>
-                                                                        {{/each}}
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    <!---------- /.원그래프 ---------->
-
-                                                    <!-- <div id="container" style="min-width: 210px; height: 300px; max-width: 500px; margin: 0 auto"></div> -->
-
-                                                </div>
-
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div id="chart2">
+                                            <script>
+                                               var chart2 = c3.generate({
+                                                    data: {
+                                                        columns: [
+                                                            ['메일 삭제',{{this.Train_DelEmPeoRate}}]
+                                                        ],
+                                                        type: 'gauge',
+                                                    },
+                                                    color: {
+                                                        pattern: ['#FF3333', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+                                                        threshold: {
+                                                            values: [20, 40, 60, 80]
+                                                        }
+                                                    },
+                                                    size: {
+                                                        height: 180
+                                                    },
+                                                    bindto: '#chart2',
+                                                });
+                                            </script>
                                             </div>
                                         </div>
                                     </div>
-                                    <!---------------------------/. 감염률(전체)-------------------------->
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan=3 rospan=2>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    훈련 상세정보 1
-                                                </div>
-                                                <div class="panel-body">
-                                                <table width="100%" id="mytable" class="table table-striped table-bordered table-hover">
-                                                    {{#each tmp}}
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="text-align :center;">&nbsp;이메일 수신&nbsp;</th>
-                                                            <th style="text-align :center;">&nbsp;이메일 삭제&nbsp;</th>
-                                                            <th style="text-align :center;">&nbsp;이메일 클릭&nbsp;</th>
-                                                            <th style="text-align :center;">&nbsp;스팸 처리&nbsp;</th>
-                                                            <th style="text-align :center;">&nbsp;{{this.Train_Type2}}
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <!-- handlebars의 each문을 사용하여 데이터를 출력한다.-->
-                                                        <tr>
-                                                            <td width="20%" align=center>{{this.Train_RecvMailPeo}} / {{this.Train_TotalPeo}}</td>
-                                                            <td width="20%" align=center>{{this.Train_DelEmPeo}} / {{this.Train_TotalPeo}}</td>
-                                                            <td width="20%" align=center>{{this.Train_ClickPeo}} / {{this.Train_TotalPeo}}</td>
-                                                            <td width="20%" align=center>{{this.Train_SpamPeo}} / {{this.Train_TotalPeo}}</td>
-                                                            <td width="20%" align=center>{{this.Train_Totalattackno}} / {{this.Train_TotalPeo}}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                    {{/each}}
-                                                </table>
-                                                </div>
+                                </div>
+                                <div class="col-lg-4" >
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-bitbucket fa-fw"></i> 스팸 처리 
+                                        </div>
+
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div id="chart3">
+                                            <script>
+                                               var chart3 = c3.generate({
+                                                    data: {
+                                                        columns: [
+                                                            ['스팸 처리', {{this.Train_SpamPeoRate}}]
+                                                        ],
+                                                        type: 'gauge',
+                                                    },
+                                                    color: {
+                                                        pattern: ['#FF3333', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+                                                        threshold: {
+                                                            values: [20, 40, 60, 80]
+                                                        }
+                                                    },
+                                                    size: {
+                                                        height: 180
+                                                    },
+                                                    bindto: '#chart3',
+                                                });
+                                            </script>
                                             </div>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                                <div class="col-lg-4" >
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-hand-o-up fa-fw"></i> 메일 클릭 
+                                        </div>
 
-                            <!-----------------------------------그래프 3개 묶음------------------------------------------------->
-                            <tr>
-                                <td colspan=3 rospan=2>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    훈련 상세정보 2
-                                                </div>
-
-                                                <!-- /.panel-heading -->
-                                                <div class="panel-body">
-                                                    {{#each tmp}}
-                                                    <table width="100%" border=0>
-                                                        <tr>
-                                                            <td width="33%">
-
-                                                                <div class="metric participation" data-ratio="{{this.Train_DelEmPeoRate}}">
-                                                                    <svg viewBox="0 0 1000 500">
-            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
-            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="500" y="300" font-size="140" font-weight="bold"></text>
-            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">메일 삭제</text>
-          </svg>
-                                                                </div>
-
-                                                            </td>
-                                                            <td width="33%">
-                                                                <div class="metric completion" data-ratio="{{this.Train_ClickPeoRate}}">
-                                                                    <svg viewBox="0 0 1000 500">
-            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
-            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="500" y="300" font-size="140" font-weight="bold"></text>
-            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">이메일 열람 여부</text>
-          </svg>
-                                                                </div>
-
-                                                            </td>
-                                                            <td width="33%">
-
-                                                                <div class="metric blocked" data-ratio="{{this.Train_SpamPeoRate}}">
-                                                                    <svg viewBox="0 0 1000 500">
-            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
-            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="500" y="300" font-size="140" font-weight="bold"></text>
-            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">스팸 처리</text>
-          </svg>
-                                                                </div>
-
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                    {{/each}}
-                                                </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div id="chart4">
+                                            <script>
+                                               var chart4 = c3.generate({
+                                                    data: {
+                                                        columns: [
+                                                            ['메일 클릭', {{this.Train_ClickPeoRate}}]
+                                                        ],
+                                                        type: 'gauge',
+                                                    },
+                                                    color: {
+                                                        pattern: ['#60B044', '#F6C600', '#F97600', '#FF3333'], // the three color levels for the percentage values.
+                                                        threshold: {
+                                                            values: [20, 40, 60, 80]
+                                                        }
+                                                    },
+                                                    size: {
+                                                        height: 180
+                                                    },
+                                                    bindto: '#chart4',
+                                                });
+                                            </script>
                                             </div>
                                         </div>
                                     </div>
-
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!--------------------------------------------------------------------------->
+                                </div>
+                            </div>
+                        {{/each}}
+                    <!--------------------------------------------------------------------------->
 
 
                     </div>

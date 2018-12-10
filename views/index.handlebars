@@ -72,12 +72,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        <li><a href="/login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -114,7 +114,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -123,123 +123,103 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">메인 화면 </h1>
+               <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">메인 화면 </h1>
 
-                    <div class="main-content">
-                        <div class="section__content section__content--p30">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-md-12">
+                            <div class="row m-t-25">
+                                <div class="col-sm-10 col-lg-4">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="https://png.icons8.com/ios/75/ffffff/overtime.png">
+                                                </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div style="font-size:50px;">{{#each values5}} {{this.count}} {{/each}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <span class="pull-left">예약훈련</span>
+                                            <span class="pull-right"></span>
+                                            <div class="clearfix"></div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row m-t-25">
-
-                                    <div class="col-sm-10 col-lg-4">
-                                        <div class="overview-item overview-item--c1">
-                                            <div class="overview__inner">
-                                                <div class="overview-box clearfix">
-                                                    <div class="icon">
-                                                        <i class="zmdi zmdi-account-o"></i>
-
-                                                        <div class="text">
-                                                            <h2>예약훈련&emsp;&emsp;&emsp;100</h2><br>
-                                                        </div>
-                                                    </div>
+                                <div class="col-sm-10 col-lg-4">
+                                    <div class="panel panel-green">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="https://png.icons8.com/ios/75/ffffff/time.png">
                                                 </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 col-lg-4">
-                                        <div class="overview-item overview-item--c2">
-                                            <div class="overview__inner">
-                                                <div class="overview-box clearfix">
-                                                    <div class="icon">
-                                                        <i class="zmdi zmdi-shopping-cart"></i>
-                                                        <div class="text">
-                                                            <h2>진행훈련&emsp;&emsp;&emsp;{{#each values1}}
-                                                            {{this.count}}
-                                                               {{/each}}
-                                                            </h2>
-                                                            <br>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 col-lg-4">
-                                        <div class="overview-item overview-item--c3">
-                                            <div class="overview__inner">
-                                                <div class="overview-box clearfix">
-                                                    <div class="icon">
-                                                        <i class="zmdi zmdi-calendar-note"></i>
-
-                                                        <div class="text">
-                                                            <h2>완료훈련&emsp;&emsp;&emsp;100</h2><br>
-                                                        </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div style="font-size:50px;">{{#each values1}} {{this.count}} {{/each}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="panel-footer">
+                                            <span class="pull-left">진행훈련</span>
+                                            <span class="pull-right"></span>
+                                            <div class="clearfix"></div>
+                                        </div>
                                     </div>
-
-                                    <div class="col-lg-12">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                예약훈련
-                                            </div>
-                                            <!-- /.panel-heading -->
-                                            <div class="panel-body">
-                                                <div class="col-lg-8 table-responsive">
-                                                    <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="text-align :center;">훈련번호</th>
-                                                                <th style="text-align :center;">훈련명</th>
-                                                                <th style="text-align :center;">훈련시작일</th>
-                                                                <th style="text-align :center;">훈련종료일</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Mark</td>
-                                                                <td>Otto</td>
-                                                                <td>@mdo</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Jacob</td>
-                                                                <td>Thornton</td>
-                                                                <td>@fat</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Larry</td>
-                                                                <td>the Bird</td>
-                                                                <td>@twitter</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                </div>
+                                <div class="col-sm-10 col-lg-4">
+                                    <div class="panel panel-yellow">
+                                        <div class="panel-heading">
+                                            <div class="row">
+                                                <div class="col-xs-3">
+                                                    <img src="https://png.icons8.com/ios/75/ffffff/ok.png">
                                                 </div>
-                                                <div class="col-lg-4">
-
-                                                    <div class="metric participation" data-ratio=".100">
-                                                        <svg viewBox="0 0 1000 500">
-            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
-            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="540" y="300" font-size="140" font-weight="bold">0%</text>
-            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">예약훈련</text>
-          </svg>
-                                                    </div>
+                                                <div class="col-xs-9 text-right">
+                                                    <div style="font-size:50px;">{{#each values3}} {{this.count}} {{/each}}</div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="panel-footer">
+                                            <span class="pull-left">완료훈련</span>
+                                            <span class="pull-right"></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <i class="fa fa-calendar fa-fw"></i> 예약훈련
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="col-lg-12 table-responsive">
+                                                <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="text-align :center;">훈련번호</th>
+                                                            <th style="text-align :center;">훈련명</th>
+                                                            <th style="text-align :center;">훈련시작일</th>
+                                                            <th style="text-align :center;">훈련종료일</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {{#each values6}}
+                                                        <tr>
+                                                            <center>
+                                                                <td>{{this.Train_No}}</td>
+                                                                <td>{{this.Train_Name}}</td>
+                                                                <td>{{this.Start_Time}}</td>
+                                                                <td>{{this.Finish_Time}}</td>
+                                                            </center>
+                                                        </tr>
+                                                        {{/each}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             <!-- /.table-responsive -->
                                         </div>
                                         <!-- /.panel-body -->
@@ -247,15 +227,15 @@
                                     <!-- /.panel -->
                                 </div>
 
+                                <div class="col-lg-12">                                    
 
-                                <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            진행훈련
+                                            <i class="fa fa-history fa-fw"></i> 진행훈련
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
-                                            <div class="col-lg-8 table-responsive">
+                                            <div class="col-lg-12 table-responsive">
                                                 <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
                                                     <thead>
                                                         <tr>
@@ -280,15 +260,6 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="col-lg-4">
-                                                <div class="metric completion" data-ratio=".30">
-                                                    <svg viewBox="0 0 1000 500">
-            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
-            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="500" y="300" font-size="140" font-weight="bold">0%</text>
-            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">진행훈련</text>
-          </svg>
-                                                </div>
-                                            </div>
                                             <!-- /.table-responsive -->
                                         </div>
                                         <!-- /.panel-body -->
@@ -299,11 +270,11 @@
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
-                                            완료훈련
+                                            <i class="fa fa-check fa-fw"></i> 완료훈련
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
-                                            <div class="col-lg-8 table-responsive">
+                                            <div class="col-lg-12 table-responsive">
                                                 <table id="myTable" class="display nowrap dataTable dtr-inline collapsed" style="text-align :center; border:0px solid #dddddd;">
                                                     <thead>
                                                         <tr>
@@ -314,36 +285,18 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
+                                                        {{#each values4}}
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
+                                                            <center>
+                                                                <td>{{this.Train_No}}</td>
+                                                                <td>{{this.Train_Name}}</td>
+                                                                <td>{{this.Start_Time}}</td>
+                                                                <td>{{this.Finish_Time}}</td>
+                                                            </center>
                                                         </tr>
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
-                                                        </tr>
+                                                        {{/each}}
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="metric blocked" data-ratio=".27">
-                                                    <svg viewBox="0 0 1000 500">
-            <path d="M 950 500 A 450 450 0 0 0 50 500"></path>
-            <text class='percentage' text-anchor="middle" alignment-baseline="middle" x="500" y="300" font-size="140" font-weight="bold">0%</text>
-            <text class='title' text-anchor="middle" alignment-baseline="middle" x="500" y="450" font-size="90" font-weight="normal">완료훈련</text>
-          </svg>
-                                                </div>
                                             </div>
                                             <!-- /.table-responsive -->
                                         </div>
@@ -351,20 +304,13 @@
                                     </div>
                                     <!-- /.panel -->
                                 </div>
-
-
-
                             </div>
-                        </div>
+
                     </div>
-
-
-
-
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
 
+            </div>
         </div>
         <!-- /#page-wrapper -->
     </div>

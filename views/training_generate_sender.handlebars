@@ -62,12 +62,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        <li><a href="/login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -104,7 +104,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -114,6 +114,7 @@
         </nav>
 
         <div id="page-wrapper">
+            <div class="container-fluid">
             <form method="post" name="frm3" action="/training_generate_template">
                 <input type=hidden value="{{training_name}}" name="Training_name">
                 <input type=hidden value="{{training_type}}" name="Training_type">
@@ -128,25 +129,34 @@
                         </span>
                         </h1>
                     </div>
+                    
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="progress">
+                          <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <div class="alert alert-info alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                훈련의 기본적인 설정을 확인해주세요.
+                        </div>
+                    </div>
                     <div class="col-md-6">
+                        
                         {{#each tmp}}
                         <div><label align=left>보낸 사람 이름 <font color="dark-red">*</font></label></div>
                         <div><input type="text" class="form-control" name="Training_sender" placeholder="ex) 홍길동" value="{{this.Template_Name}}"></div>
                         <div style="padding:10px;"></div>
-
+                        {{/each}}
                         <div><label align=left>보낸 이메일 <font color="dark-red">*</font></label></div>
-                        <div><input type="text" class="form-control" name="Training_sendermail" placeholder="ex) example@google.com" value="{{this.Template_Email}}"></div>
+                        <div><input type="text" class="form-control" name="Training_sendermail" placeholder="ex) example@google.com" value="{{#each tmp2}}{{this.Comp_MID}}@{{this.Comp_Domain}}{{/each}}"></div>
                         <div style="padding:10px;"></div>
-
+                        {{#each tmp}}
                         <div><label align=left>이메일 제목 <font color="dark-red">*</font></label></div>
                         <div><input type="text" class="form-control" name="Training_title" placeholder="새로운 기기(브라우저)에서 로그인 되었습니다." value="{{this.Template_Title}}"></div>
                         <div style="padding:10px;"></div>
 
                         <!---------------------------------------------------------------편집------------------------------------------------>
-                        <div><label align=left>내용 <font color="dark-red">*</font></label></div>
-                        <div> <textarea name="Training_message" class="form-control" rows="3" placeholder="메일 내용을 입력해주세요."></textarea></div>
 
                         <div style="padding:10px;"></div>
                         {{/each}}
@@ -162,7 +172,7 @@
 
         </div>
         <!-- /#page-wrapper -->
-
+        </div>
     </div>
     <!-- /#wrapper -->
 

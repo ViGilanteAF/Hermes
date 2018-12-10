@@ -135,12 +135,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        <li><a href="/login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -177,7 +177,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -220,6 +220,7 @@
                                                 <th style="text-align :center;"><input type="checkbox" name="allgroup" id="all_checkboxgroup" onClick="totalcheckgroup();"></th>
                                                 <th style="text-align :center;">그룹번호</th>
                                                 <th style="text-align :center;">그룹명</th>
+                                                <th style="text-align :center;">회사명</th>
                                                 <th style="text-align :center;">비고</th>
                                             </tr>
                                         </thead>
@@ -231,6 +232,7 @@
                                                     <td><input type=checkbox name="checkboxtestgroup" Onclick="bcheckgroup()" value="{{this.Group_No}}"></td>
                                                     <td>{{this.Group_No}}</td>
                                                     <td><a href="../Group_page/{{this.Group_No}}">{{this.Group_Name}}</a></td>
+                                                    <td>{{this.Comp_Name}}</td>
                                                     <td>{{this.Group_Note}}</td>
                                                 </center>
                                             </tr>

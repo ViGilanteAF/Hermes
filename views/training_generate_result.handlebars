@@ -22,7 +22,6 @@
 
     <!-- Custom Fonts -->
     <link href="/public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -40,7 +39,54 @@
     function go_before() {
         document.frm3.submit();
     }
-
+    function start1(){
+        var button1 = document.getElementById('syear');
+        button1.disabled = true;
+        var button2 = document.getElementById('smonth');
+        button2.disabled = true;
+        var button3 = document.getElementById('sday');
+        button3.disabled = true;
+        var button4 = document.getElementById('shour');
+        button4.disabled = true;
+        var button5 = document.getElementById('sminute');
+        button5.disabled = true;
+    }   
+    function start2(){
+        var button1 = document.getElementById('syear');
+        button1.disabled = false;
+        var button2 = document.getElementById('smonth');
+        button2.disabled = false;
+        var button3 = document.getElementById('sday');
+        button3.disabled = false;
+        var button4 = document.getElementById('shour');
+        button4.disabled = false;
+        var button5 = document.getElementById('sminute');
+        button5.disabled = false;
+    }
+    function start3(){
+        var button1 = document.getElementById('eyear');
+        button1.disabled = true;
+        var button2 = document.getElementById('emonth');
+        button2.disabled = true;
+        var button3 = document.getElementById('eday');
+        button3.disabled = true;
+        var button4 = document.getElementById('ehour');
+        button4.disabled = true;
+        var button5 = document.getElementById('eminute');
+        button5.disabled = true;
+    }   
+    function start4(){
+        var button1 = document.getElementById('eyear');
+        button1.disabled = false;
+        var button2 = document.getElementById('emonth');
+        button2.disabled = false;
+        var button3 = document.getElementById('eday');
+        button3.disabled = false;
+        var button4 = document.getElementById('ehour');
+        button4.disabled = false;
+        var button5 = document.getElementById('eminute');
+        button5.disabled = false;
+    }
 </script>
 
 <body>
@@ -67,12 +113,12 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
+                        <li><a href="/info"><i class="fa fa-user fa-fw"></i> 계정 정보</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 설정</a>
+                        <li><a href="/setting"><i class="fa fa-gear fa-fw"></i> 설정</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
+                        <li><a href="/login.html"><i class="fa fa-sign-out fa-fw"></i> 로그아웃</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -109,7 +155,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="/mailsend.html"><i class="fa fa-envelope-o fa-fw"></i> 메일 전송 </a>
+                            <a href="/reporting.html"><i class="fa fa-bar-chart-o"></i> 훈련 결과 비교  </a>
                         </li>
                     </ul>
                 </div>
@@ -119,8 +165,9 @@
         </nav>
 
         <div id="page-wrapper">
+            <div class="container-fluid">
             <div class="row">
-                <form method="post" name="frm3" action="/training_generate_useradd">
+                 <form method="post" name="frm3" action="/training_generate_useradd">
                     <input type=hidden value="{{training_name}}" name="Training_name">
                     <input type=hidden value="{{training_type}}" name="Training_type">
                     <input type=hidden value="{{training_product}}" name="Training_product">
@@ -129,6 +176,8 @@
                     <input type=hidden value="{{training_title}}" name="Training_title">
                     <input type=hidden value="{{training_message}}" name="Training_message">
                 </form>
+                <form method="post" name="frm" action="/training_generate_end">
+
                 <div class="col-lg-12">
                     <h1 class="page-header"> 훈련생성 - 결과
                         <span style="float: right">
@@ -136,21 +185,74 @@
                         <button class="btn btn-default" type="button" onclick="go_next()" >생성</button>
                     </span>
                     </h1>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
+
                 <div class="col-md-6">
                     <h5><b>  캠페인 시작일</b></h5>
                     <div class="panel panel-default">
 
                         <div class="panel-heading">
-                            <input type=radio checked> 즉시시작 &nbsp;<input type=radio disabled> 예약된 시간에 시작
+                            <input type=radio checked value="0" name="start" onclick=start1()> 즉시시작 &nbsp;<input type=radio value="1" name="start" onclick=start2()> 예약된 시간에 시작
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table>
                                     <tr>
-                                        <td><input type=date readonly>&nbsp;&nbsp;</td>
-                                        <td><input type=time readonly></td>
+                                        <td><label>Year</label><select id='syear' class='form-control' name='syear' disabled>
+                                        <option value='' selected >년도</option>
+                                            <script>
+                                            for (var i=2018; i<=2025; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+                                        </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Month</label><select class='form-control' id='smonth' name='smonth' disabled>
+                                        <option value='' selected>월</option>
+                                            <script>
+                                            for (var i=1; i<=12; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+                                        
+                                        </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Day</label><select class='form-control' id='sday' name='sday' disabled>
+                                        <option value='' selected>일</option>
+                                            <script>
+                                            for (var i=1; i<=31; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+                                            </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Hour</label><select class='form-control' id='shour' name='shour' disabled>
+                                            <script>
+                                            for (var i=0; i<24; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+
+                                        </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Minute</label><select class='form-control' id='sminute' name='sminute' disabled>
+                                            <script>
+                                            for (var i=0; i<=59; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+
+
+                                        </select></td>
                                     </tr>
                                 </table>
                             </div>
@@ -163,15 +265,64 @@
                     <div class="panel panel-default">
 
                         <div class="panel-heading">
-                            <input type=radio checked> 자동종료 &nbsp;<input type=radio disabled> 예약된 시간에 종료
+                            <input type=radio checked value="0" name="end" onclick=start3()> 자동종료 &nbsp;<input type=radio value="1" name="end" onclick=start4()> 예약된 시간에 종료
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table>
                                     <tr>
-                                        <td><input type=date readonly>&nbsp;&nbsp;</td>
-                                        <td><input type=time readonly></td>
+                                        <td><label>Year</label><select class='form-control' id='eyear' name='eyear' disabled>
+                                        <option value='' selected>년도</option>
+                                            <script>
+                                            for (var i=2018; i<=2025; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+                                        </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Month</label><select class='form-control' id='emonth' name='emonth' disabled>
+                                        <option value='' selected>월</option>
+                                            <script>
+                                            for (var i=1; i<=12; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+                                        
+                                        </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Day</label><select class='form-control' id='eday' name='eday' disabled>
+                                        <option value='' selected>일</option>
+                                            <script>
+                                            for (var i=1; i<=31; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+                                            </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Hour</label><select class='form-control' id='ehour' name='ehour' disabled>
+                                            <script>
+                                            for (var i=0; i<24; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+
+                                        </select></td>
+                                        <td><label> </label>&nbsp;&nbsp;&nbsp;</td>
+                                        <td><label>Minute</label><select class='form-control' id='eminute' name='eminute' disabled>
+                                            <script>
+                                            for (var i=0; i<=59; i++)
+                                                {
+                                                    document.write("<option value="+i+">"+i+"</option>");
+                                                }
+                                            </script>
+
+
+                                        </select></td>
                                     </tr>
                                 </table>
                             </div>
@@ -225,7 +376,7 @@
 
 
                 <!-- /.col-lg-12 -->
-                <form method="post" name="frm" action="/training_generate_end">
+                
                     <input type=hidden value="{{training_name}}" name="Training_name">
                     <input type=hidden value="{{training_type}}" name="Training_type">
                     <input type=hidden value="{{training_product}}" name="Training_product">
@@ -239,7 +390,7 @@
             </div>
         </div>
         <!-- /#page-wrapper -->
-
+        </div>
     </div>
     <!-- /#wrapper -->
 
