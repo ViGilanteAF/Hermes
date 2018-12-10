@@ -1,0 +1,33 @@
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\bin\Debug\아웃룩서버.exe.config
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\bin\Debug\아웃룩서버.exe
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\bin\Debug\아웃룩서버.pdb
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\obj\Debug\아웃룩서버.csprojAssemblyReference.cache
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\obj\Debug\아웃룩서버.csproj.CoreCompileInputs.cache
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\obj\Debug\아웃룩서버.exe
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\obj\Debug\아웃룩서버.pdb
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\bin\Debug\MySql.Data.dll
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\bin\Debug\Google.Protobuf.dll
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\bin\Debug\MySql.Data.xml
+C:\Users\발발이\source\repos\아웃룩서버\아웃룩서버\obj\Debug\아웃룩서버.csproj.CopyComplete
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\obj\Debug\아웃룩서버.csprojAssemblyReference.cache
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\obj\Debug\아웃룩서버.csproj.CoreCompileInputs.cache
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\obj\Debug\아웃룩서버.exe
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\obj\Debug\아웃룩서버.pdb
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\bin\Debug\아웃룩서버.exe.config
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\bin\Debug\아웃룩서버.exe
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\bin\Debug\아웃룩서버.pdb
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\bin\Debug\MySql.Data.dll
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\bin\Debug\Google.Protobuf.dll
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\bin\Debug\MySql.Data.xml
+C:\Users\발발이\source\repos\아웃룩서버_1\아웃룩서버\obj\Debug\아웃룩서버.csproj.CopyComplete
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\bin\Debug\아웃룩서버.exe.config
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\bin\Debug\아웃룩서버.exe
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\bin\Debug\아웃룩서버.pdb
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\bin\Debug\MySql.Data.dll
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\bin\Debug\Google.Protobuf.dll
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\bin\Debug\MySql.Data.xml
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\obj\Debug\아웃룩서버.csprojAssemblyReference.cache
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\obj\Debug\아웃룩서버.csproj.CoreCompileInputs.cache
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\obj\Debug\아웃룩서버.csproj.CopyComplete
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\obj\Debug\아웃룩서버.exe
+C:\Users\발발이\Desktop\아웃룩서버_2(최종 수정)\아웃룩서버\obj\Debug\아웃룩서버.pdb
